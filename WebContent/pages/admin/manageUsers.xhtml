@@ -4,34 +4,29 @@
 		xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:p="http://primefaces.org/ui"
-		template="/pages/includes/templatePage.xhtml">
-		<ui:define name="title">Lab Software</ui:define>
-		<ui:define name="top">Lab Software</ui:define>
+		template="/pages/includes/templatePageTiles.xhtml">
+		
 		<ui:define name="content">
 
-<h:form>
+<h:form id="form_mu">
   
 
   	<p:panel id="panel2"  header="#{crit.pageTitle}" style="text-align: center;">
 					<p:panelGrid style="margin-top:20px; width: 70%; margin: 0 auto"
 					columns="2">
 					
-					<p:outputLabel value="Enter ID"></p:outputLabel>
- 					 <p:inputText value="#{adminBean.toSearchUser.id}"></p:inputText>
+					<p:outputLabel value="User ID/Login ID"></p:outputLabel>
+ 					 <p:inputText value="#{adminBean.toSearchUser.userId}"></p:inputText>
  					 
-					<p:outputLabel value="Enter Username"></p:outputLabel>
- 					 <p:inputText value="#{adminBean.toSearchUser.userName}"></p:inputText>
- 
-  						<p:outputLabel value="Enter Name"></p:outputLabel>
-  						<p:inputText value="#{adminBean.toSearchUser.name}"></p:inputText>
-  						
-  						<p:outputLabel value="Select Profile Status"></p:outputLabel>
-  						<p:selectOneMenu value="#{adminBean.toSearchUser.profileStatus}">
-							<f:selectItem itemLabel="Select One" itemValue="" />
-							<f:selectItem itemLabel="Current" itemValue="Current" />
-							<f:selectItem itemLabel="Deleted" itemValue="Deleted" />
-						</p:selectOneMenu>
-					
+ 					 
+ 					 <p:outputLabel value="Name"></p:outputLabel>
+  					<p:inputText value="#{adminBean.toSearchUser.userName}"></p:inputText>
+  					
+  					<p:outputLabel value="Appt"></p:outputLabel>
+  					<p:inputText value="#{adminBean.toSearchUser.appt}"></p:inputText>
+  					
+  					<p:outputLabel value="Dept"></p:outputLabel>
+  					<p:inputText value="#{adminBean.toSearchUser.dept}"></p:inputText>
 					
  					 
 					</p:panelGrid>
@@ -48,68 +43,47 @@
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					>
 
-					<p:column headerText="ID" style="width:20px;">
-						<h:outputText value="#{mylist.id}" />
+					<p:column headerText="Login ID / User ID" >
+						<h:outputText value="#{mylist.userId}" />
 					</p:column>
 					
-					<p:column headerText="User Name">
-						<h:outputText value="#{mylist.userName}" />
-					</p:column>
-
-					<p:column headerText="Name">
-						<p:inputText value="#{mylist.name}" />
-					</p:column>
-
-					<p:column headerText="Appointment">
-						<p:inputText value="#{mylist.appointment}" />
+					<p:column headerText="Name" >
+						<h:inputText value="#{mylist.userName}" style="color:black;"/>
 					</p:column>
 					
-					<p:column headerText="Section">
-						<p:inputText value="#{mylist.section}" />
+					<p:column headerText="Appointment" >
+						<h:inputText value="#{mylist.appt}" style="color:black;"/>
 					</p:column>
-
-					 <p:column headerText="System Admin">
-					  <p:selectOneMenu value="#{mylist.roleAdmin}">
+					
+					<p:column headerText="Department">
+						<h:inputText value="#{mylist.dept}" style="color:black;" />
+					</p:column>
+					
+					<p:column headerText="Admin" style="width:7%;">
+					  <p:selectOneMenu value="#{mylist.roleAdmin}" style="width:50px;">
   						<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
   						<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
   						</p:selectOneMenu>
   					</p:column>
-  					
-  					<p:column headerText="Add/Edit">
-					  <p:selectOneMenu value="#{mylist.roleAddn}">
-  						<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
-  						<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
-  						</p:selectOneMenu>
-  					</p:column>
-  					
-  					<p:column headerText="View">
-					  <p:selectOneMenu value="#{mylist.roleView}">
-  						<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
-  						<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
-  						</p:selectOneMenu>
-  					</p:column>
-  					
-  					
-					<p:column headerText="Profile Status">
-						<p:selectOneMenu value="#{mylist.profileStatus}">
-							<f:selectItem itemLabel="Current" itemValue="Current" />
-							<f:selectItem itemLabel="Deleted" itemValue="Deleted" />
-						</p:selectOneMenu>
-					</p:column>		
 					
-					<p:column headerText="Reset Password">
-					<p:commandButton action="#{adminBean.resetPassword}" icon="fa fa-fw fa-refresh"	>
+					<p:column headerText="Reset Password" style="width:7%;">
+					<p:commandButton action="#{adminBean.resetPassword}" style="width:40px;" 
+						icon="fa fa-fw fa-refresh"	>
 							<f:setPropertyActionListener target="#{adminBean.toSearchUser}" value="#{mylist}" />
 						</p:commandButton>
 						
 					</p:column>
-
+					
+					
 				</p:dataTable>
+				
+				
 				
 				
 				<br/>
 				
-					<p:commandButton value="Update" action="#{adminBean.updateUsers}" icon="fa fa-fw fa-save" ajax="false"></p:commandButton>
+					<p:commandButton rendered="true" 
+						value="Update" action="#{adminBean.updateUsers}" icon="fa fa-fw fa-save" ajax="false"></p:commandButton>
 </h:form>
 </ui:define>
 	</ui:composition>

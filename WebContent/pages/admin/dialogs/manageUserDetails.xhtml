@@ -1,0 +1,53 @@
+
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui">
+	  
+
+  	
+				<h:panelGrid columns="2" frame="box" style="margin-top:10px; width: 100%; margin: 0 auto">
+				<p:panel id="panel3"  header="AET Roles" style="text-align: center; width:100%;" >
+					<p:panelGrid style="margin-top:20px; width:90%; margin: 3 auto"
+					columns="1">
+					
+					 
+ 					 <p:pickList id="pickList" 
+ 					  value="#{adminBean.aetRolesDual}" 
+ 					  var="aetd" itemLabel="#{aetd}" itemValue="#{aetd}" >
+ 					  		<f:facet name="sourceCaption">Available</f:facet>
+        					<f:facet name="targetCaption">Already Held</f:facet>
+ 					  </p:pickList>
+ 
+										
+					</p:panelGrid>
+				</p:panel>
+				
+				<p:panel id="panel4"  header="Modality Roles" style="text-align: center; width:100%;" >
+					<p:panelGrid style="margin-top:20px; width:90%; margin: 3 auto"
+					columns="1">
+					
+					 
+ 					 <p:pickList id="pickList2" 
+ 					  value="#{adminBean.modRolesDual}" 
+ 					  var="moda" itemLabel="#{moda}" itemValue="#{moda}" >
+ 					  		<f:facet name="sourceCaption">Available</f:facet>
+        					<f:facet name="targetCaption">Already Held</f:facet>
+ 					  </p:pickList>
+ 					  
+										
+					</p:panelGrid>
+				</p:panel>
+				</h:panelGrid>  	
+  	<br/>		
+				<br/>
+				<p:panelGrid columns="2">
+					<p:commandButton value="Cancel" onclick="window.close();" 
+					icon="fa fa-fw fa-cancel" ajax="false"></p:commandButton>
+					<p:commandButton value="Update" 
+					action="#{adminBean.updateRolesFromDialog}" 
+					icon="fa fa-fw fa-save" ajax="false"></p:commandButton>
+				</p:panelGrid>
+	</ui:composition>
+

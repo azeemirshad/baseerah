@@ -1,0 +1,94 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/includes/templatePageTiles.xhtml">
+
+	<ui:define name="content">
+
+<h:form id="form1">
+ <p:growl id="msgs" showDetail="true"/>
+	<p:defaultCommand target="btnSearch" />	
+	<p:focus context="panel2" for="name"></p:focus> 		 	
+  	<p:panel id="panel2"   style="text-align: center;">
+  				<p:panelGrid style="width: 80%; margin:0 auto;" styleClass="companyHeaderGrid" 
+					columns="4">
+					
+					<p:outputLabel value="Name"></p:outputLabel>
+ 					<p:inputText value="#{searchBean.toSearchUserProfile.name}" id="name"></p:inputText> 
+
+					<p:outputLabel value="Mobile No"></p:outputLabel>
+					
+ 					<p:inputText value="#{searchBean.toSearchUserProfile.phone}"></p:inputText> 
+ 					
+				</p:panelGrid>
+				<p:commandButton value="Search" icon="fa fa-fw fa-search" update="tbl2" id="btnSearch" 
+  					action="#{searchBean.searchUserProfile}" style="height: 3em;"/>
+ 
+ 	</p:panel>
+  
+	<p:dataTable value="#{searchBean.userProfileList}" var="profile" 
+  					editable="true"
+					paginatorPosition="top" rows="20"
+					rowsPerPageLabel=" Rows" 
+					rowsPerPageTemplate="10,20,50"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+					id="tbl2" >
+		 <f:facet name="{Exporters}">
+            <h:commandLink>
+                <p:graphicImage name="/images/excel.png" width="24"/>
+                <p:dataExporter type="xls" target="tbl2" fileName="contacts" />
+            </h:commandLink>
+            
+            <h:commandLink>
+                <p:graphicImage name="/images/csv.png" width="24"/>
+                <p:dataExporter type="csv" target="tbl2" fileName="contacts" />
+            </h:commandLink>
+            
+        </f:facet>
+        <p:ajax event="rowEdit" listener="#{searchBean.onRowEdit}" update=":form1:msgs" />
+        <p:ajax event="rowEditCancel" listener="#{searchBean.onRowCancel}" update=":form1:msgs" />
+ 
+		
+		
+		<p:column headerText="ID" sortBy="#{profile.id}" filterBy="#{profile.id}" 
+ 					filterMatchMode="contains" width="10%">
+	            <h:outputText style="font-size:16px;" value="#{profile.id}" />
+        </p:column>
+		<p:column headerText="Name" sortBy="#{profile.name}" filterBy="#{profile.name}" 
+			filterMatchMode="contains" width="60%">
+			<p:cellEditor>
+				<f:facet name="output"><h:outputText style="font-size:16px;" value="#{profile.name}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{profile.name}" style="width:100%" label="Name"/></f:facet>
+	            
+	        </p:cellEditor>
+        </p:column>
+	        
+				        
+		<p:column headerText="Mobile No"   sortBy="#{profile.phone}" filterBy="#{profile.phone}" 
+			filterMatchMode="contains">
+			<p:cellEditor>
+				<f:facet name="output"><h:outputText style="font-size:16px;" value="#{profile.phone}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{profile.phone}" style="width:100%" label="Name"/></f:facet>
+	        </p:cellEditor>
+	    </p:column>
+	    <p:column style="width:5%" headerText="Edit">
+           <p:rowEditor editTitle="Click to edit row." cancelTitle="Cancel" saveTitle="Save">
+           	
+           </p:rowEditor>
+       </p:column>
+				    
+	</p:dataTable>
+				
+				
+    			
+	<br/>
+						
+</h:form>
+
+</ui:define>
+</ui:composition>
+

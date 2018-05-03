@@ -7,44 +7,111 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<h:outputStylesheet library="css" name="style.css" />
-	<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
-	<title>EME Dte - IHD/CMTs</title>
+	<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}">
+		
+	</link>
+	<title><h:outputText value="#{envmtBean.applFullName}"/> </title>
+	
 	
 </h:head>
 <h:body>
 	<p:layout fullPage="true"> 
 
-		<p:layoutUnit position="center" style="margin-top:70px;" >
+		<p:layoutUnit position="center"  >
 		
 			<!--  f:facet name="header" -->
 				<h:form>
 				
-				<!--  p:graphicImage name="images/banner.png"  ></p:graphicImage -->
+				
 				<div class="banner_holder">
-    				<div class="banner_holderImage"></div>  
+    				<div class="banner_holderImage">
+    					<p:graphicImage name="#{envmtBean.bannerFile}" width="100%" 
+    					></p:graphicImage>
+    				 
 				<p:toolbar style="background: none !important;border: none !important;position:absolute;top:0px;right:0px;color:black !important;">	
 				
 
 				<f:facet name="right" >
-				<h:panelGrid columns="3" columnClasses="verticalAlign">
+				<h:panelGrid columns="4" columnClasses="verticalAlign">
 					 <p:outputLabel value="#{userBean.loggedUserString}"></p:outputLabel>
-					<p:themeSwitcher id="basic" style="width:100px;" value="#{themeSwitcherView.selectedTheme}" label="Theme Selection">
+					 <p:spacer width="5"></p:spacer>
+					<p:themeSwitcher id="basic" style="width:100px;" 
+					value="#{themeSwitcherView.selectedTheme}" label="Theme Selection" >
             			<f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"></f:selectItems>
             			<p:ajax listener="#{themeSwitcherView.saveTheme}" />
         			</p:themeSwitcher>
-    				<p:commandButton icon="fa fa-fw fa-power-off" title="Logout" 
-    					action="#{userBean.logoutUser}" ajax="highlight">
-					
-					</p:commandButton>
+    				
+					<p:commandButton icon="fa fa-fw fa-power-off" title="Logout" 
+    					action="#{userBean.logoutUser}" ajax="highlight"></p:commandButton>
 					</h:panelGrid>
 						</f:facet>
 				
 				
 						</p:toolbar>
+						
+						<f:ajax render=":content">
+			<p:menubar style="position:absolute;top:75%;left:8%;border: none !important;opacity: 1.0;">
+				<p:menuitem value="Home" action="#{navBean.navHomePage}"
+					update=":content" icon="fa fa-fw fa-home" rendered="true">
+				</p:menuitem>
+
+				
+					
+					<p:submenu label="Patient / Studies" icon="fa fa-fw fa-ambulance">
+					
+					<p:menuitem value="Search Data" icon="fa fa-fw fa-search"
+						ajax="true" name="pageViewID"
+						action="#{navBean.navSearchPatientPage}" update=":content" />
+								
+				<p:separator/>
+				
+				<p:menuitem value="Recycle Bin" icon="fa fa-fw fa-trash-o" rendered="#{userBean.currentUser.roleAdmin=='Y'}" 
+						ajax="true" name="pageViewID"
+						action="#{navBean.navRecycleBinPage()}" update=":content" />
+				</p:submenu>
+					
+					
+					<p:menuitem value="Dash Board" rendered="#{userBean.currentUser.roleAdmin=='Y'}" 
+					icon="fa fa-fw fa-hospital-o"
+						ajax="true" 
+						action="#{navBean.navDashBoardPage}" update=":content" >
+						
+					</p:menuitem>	
+					
+				<p:submenu label="Admin" icon="fa fa-fw fa-gear"
+				
+					>
+					
+						<p:menuitem value="Add New Users"  rendered="#{userBean.currentUser.roleAdmin=='Y'}"
+						action="#{navBean.navAdminAddUsersPage}" update=":content"
+						icon="fa fa-fw fa-user-plus" />	
+						<p:separator />
+						<p:menuitem value="Manage Users" rendered="#{userBean.currentUser.roleAdmin=='Y'}"
+						action="#{navBean.navAdminManageUsersPage}" update=":content"
+						icon="fa fa-fw fa-users" />
+						
+						<p:separator />
+						<p:menuitem value="Modality Alias" 
+						rendered="#{userBean.currentUser.roleAdmin=='Y'}"
+						action="#{navBean.navAdminModalityAliasPage}" update=":content"
+						icon="fa fa-fw fa-user" />					
+					
+					<p:separator />
+					<p:menuitem value="Change Password"
+						action="#{navBean.navAdminChangePassword}" update=":content"
+						icon="fa fa-fw fa-lock"/>
+					
+					
+			</p:submenu>
+
+			</p:menubar>
+		</f:ajax>
+						</div> 
 				 </div>
+		<p:messages severity="info, error, fatal"   
+  			showDetail="true" autoUpdate="true" closable="true" />		
 				
-				
-			<ui:include src="/pages/includes/header.xhtml" />
+			<!--  ui:include src="/pages/includes/header.xhtml" / -->
 			
 				
 			
@@ -58,14 +125,18 @@
 					<ui:include src="#{navBean.pageName}" />
 				</ui:insert>
 			</p:panel>
-			<!--  f:facet name="footer">
-				<div align="center">Powered by : 
-				<a href ="http://www.techovative.co" style="color:white">Techovative Solutions</a>
-				</div>
+			  <f:facet name="footer">
+				<div align="center">Copyrights&copy; 2017 
+				<a href ="http://www.techovative.co" style="color:white">Techovative</a>
+				,All rights reserved.
+				</div>	
 				
-			</f:facet -->
+											
+			</f:facet>
 			
 		</p:layoutUnit>
 	</p:layout>
+	
+	  
 </h:body>
 </html>

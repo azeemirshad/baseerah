@@ -4,9 +4,8 @@
 		xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:p="http://primefaces.org/ui"
-		template="/pages/includes/templatePage.xhtml">
-		<ui:define name="title">Lab Software</ui:define>
-		<ui:define name="top">Lab Software</ui:define>
+		template="/pages/includes/templatePageTiles.xhtml">
+		
 		<ui:define name="content">
 
 <h:form>
@@ -16,43 +15,35 @@
 					<p:panelGrid style="margin-top:20px; width: 90%; margin: 0 auto"
 					columns="2">
 					
-					<p:outputLabel value="Enter Username"></p:outputLabel>
-  <p:inputText value="#{adminBean.toAddUser.userName}"></p:inputText>
+					<p:outputLabel value="Enter User ID/Login ID"></p:outputLabel>
+  					<p:inputText value="#{adminBean.toAddUser.userId}"></p:inputText>
+  					
+  					<p:outputLabel value="Enter Name"></p:outputLabel>
+  					<p:inputText value="#{adminBean.toAddUser.userName}"></p:inputText>
+  					
+  					<p:outputLabel value="Enter Appointment"></p:outputLabel>
+  					<p:inputText value="#{adminBean.toAddUser.appt}"></p:inputText>
+  					
+  					<p:outputLabel value="Enter Dept"></p:outputLabel>
+  					<p:inputText value="#{adminBean.toAddUser.dept}"></p:inputText>
+  					
+  					<p:outputLabel value="System Admin" rendered="true"></p:outputLabel>
+					  <p:selectOneMenu value="#{adminBean.toAddUser.roleAdmin}" rendered="true"
+					  style="width:40px">
+					  	<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
+					  	<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
+					 </p:selectOneMenu>
+					 
+					 
+  					
  
-  <p:outputLabel value="Enter Name"></p:outputLabel>
-  <p:inputText value="#{adminBean.toAddUser.name}"></p:inputText>
-  
-  <p:outputLabel value="Enter Appt/Designation"></p:outputLabel>
-  <p:autoComplete id="apptAuto" dropdown="true"  value="#{adminBean.toAddUser.appointment}" completeMethod="#{adminBean.completeAppointments}" />
-  
-  
-  <p:outputLabel value="Enter Section"></p:outputLabel>
-  <p:autoComplete id="sectionAuto" dropdown="true" value="#{adminBean.toAddUser.section}" completeMethod="#{adminBean.completeSections}" />
  </p:panelGrid>
  <p:panelGrid style="margin-top:20px; width: 90%; margin: 0 auto"
-					columns="4">
-  <p:outputLabel value="System Admin"></p:outputLabel>
-  <p:selectOneMenu value="#{adminBean.toAddUser.roleAdmin}">
-  	<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
-  	<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
-  </p:selectOneMenu>
-  
- 
-  <p:outputLabel value="Add / Edit"></p:outputLabel>
-  <p:selectOneMenu value="#{adminBean.toAddUser.roleAddn}">
-  	<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
-  	<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
-  </p:selectOneMenu>
-  
-  <p:outputLabel value="View"></p:outputLabel>
-  <p:selectOneMenu value="#{adminBean.toAddUser.roleView}">
-  	<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
-  	<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
-  </p:selectOneMenu>
+					columns="4" >
   
   
-					</p:panelGrid>
-				</p:panel>
+	</p:panelGrid>
+</p:panel>
  
  
  

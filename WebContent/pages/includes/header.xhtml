@@ -9,50 +9,52 @@
 <h:body>
 	
 		<f:ajax render=":content">
-			<p:menubar style="position:absolute;top: 95px;left: 12px;border: none !important;opacity: 0.7">
-				<p:menuitem value="Home" ajax="true" action="#{navBean.navHomePage}"
-					update=":content" icon="ui-icon-home" rendered="true">
+			<p:menubar style="position:inherit;border: none !important;opacity: 1.0;">
+				<p:menuitem value="Home" action="#{navBean.navHomePage}"
+					update=":content" icon="fa fa-fw fa-home" rendered="true">
 				</p:menuitem>
 
-				<p:submenu label="Add IHD/CMT" icon="fa fa-fw fa-plus" rendered="#{userBean.currentUser.roleAddn=='Y'}">
-					<p:menuitem value="Add New IHD/CMT" icon="fa fa-fw fa-plus-square"
-						ajax="true" name="pageViewID"
-						action="#{navBean.navAddPlanner}" update=":content" />
+				
+				
+				<p:submenu label="Patient / Studies" icon="fa fa-fw fa-ambulance">
 					
-									
+					<p:menuitem value="Search Data" icon="fa fa-fw fa-search"
+						ajax="true" name="pageViewID"
+						action="#{navBean.navSearchPatientPage}" update=":content" />
+								
+				<p:separator/>
+				
+				<p:menuitem value="Recycle Bin" icon="fa fa-fw fa-trash-o" rendered="#{userBean.currentUser.roleAdmin=='Y'}" 
+						ajax="true" name="pageViewID"
+						action="#{navBean.navSearchPatientPage}" update=":content" />
 				</p:submenu>
-				
-				
-				<p:submenu label="Advance Search" icon="fa fa-fw fa-search" 
-				rendered="#{(userBean.currentUser.roleAddn=='Y') || (userBean.currentUser.roleAdmin=='Y')}"
-				>
 					
-					<p:menuitem value="Search Plan" icon="fa fa-fw fa-search"
-						ajax="true" name="pageViewID"
-						action="#{navBean.navAdvanceSearch}" update=":content" />
+					<p:menuitem value="Dash Board" rendered="#{userBean.currentUser.roleAdmin=='Y'}" 
+					icon="fa fa-fw fa-hospital-o"
+						ajax="true" 
+						action="#{navBean.navDashBoardPage}" update=":content" >
 						
+					</p:menuitem>	
 					
-				</p:submenu>				
-
 				<p:submenu label="Admin" icon="fa fa-fw fa-gear"
+				
 					>
 					
-						<p:menuitem value="Add New Users" rendered="#{userBean.currentUser.roleAdmin == 'Y'}" 
+						<p:menuitem value="Add New Users"  rendered="#{userBean.currentUser.roleAdmin=='Y'}"
 						action="#{navBean.navAdminAddUsersPage}" update=":content"
 						icon="fa fa-fw fa-plus-square" />	
 						<p:separator />
-						<p:menuitem value="Manage Users" rendered="#{userBean.currentUser.roleAdmin == 'Y'}"
+						<p:menuitem value="Manage Users" rendered="#{userBean.currentUser.roleAdmin=='Y'}"
 						action="#{navBean.navAdminManageUsersPage}" update=":content"
 						icon="fa fa-fw fa-wrench" />					
 					
 					<p:separator />
 					<p:menuitem value="Change Password"
 						action="#{navBean.navAdminChangePassword}" update=":content"
-						icon="fa fa-fw fa-wrench"/>
+						icon="fa fa-fw fa-lock"/>
 					
 					
-					
-				</p:submenu>
+			</p:submenu>
 
 			</p:menubar>
 		</f:ajax>
