@@ -1,4 +1,4 @@
-package com.pacs.utils;
+package com.baseerah.utils;
 
 import java.util.Enumeration;
 import java.util.ResourceBundle;

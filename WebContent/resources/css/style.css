@@ -357,6 +357,10 @@ background-image: none ;
   right: 0;
 }
 
+.notifyColumns{
+	width:400px;
+	
+}
 .mybutton {
     margin: 2px;
     padding: 0;

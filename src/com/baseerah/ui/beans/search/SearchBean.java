@@ -23,14 +23,14 @@ import org.primefaces.util.Base64;
 import com.baseerah.dal.dao.UserProfile;
 import com.baseerah.ui.beans.UserBean;
 import com.baseerah.ui.beans.admin.CriteriaBean;
+import com.baseerah.utils.Environment;
+import com.baseerah.utils.BaseerahConstants;
+import com.baseerah.utils.NavigationConstants;
 import com.google.gson.Gson;
 import com.iac.web.util.FacesUtils;
 import com.pacs.bll.search.SearchBll;
 import com.pacs.dal.dao.ApplicationUsers;
-import com.pacs.utils.Environment;
-import com.pacs.utils.MessageConstants;
 import com.pacs.utils.MessageUtils;
-import com.pacs.utils.NavigationConstants;
 
 
 
@@ -65,7 +65,7 @@ public class SearchBean implements Serializable
 		}
 //		else
 //		{
-//			MessageUtils.error(MessageConstants.Messages.INVALID_DATE);
+//			MessageUtils.error(BaseerahConstants.Messages.INVALID_DATE);
 //		}
 		
 		

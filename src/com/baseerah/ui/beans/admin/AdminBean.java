@@ -11,13 +11,13 @@ import javax.faces.model.SelectItem;
 import org.primefaces.model.DualListModel;
 
 import com.baseerah.ui.beans.UserBean;
+import com.baseerah.utils.Environment;
+import com.baseerah.utils.BaseerahConstants;
+import com.baseerah.utils.NavigationConstants;
 import com.iac.web.util.FacesUtils;
 import com.pacs.bll.admin.AdminBll;
 import com.pacs.dal.dao.ApplicationUsers;
-import com.pacs.utils.Environment;
-import com.pacs.utils.MessageConstants;
 import com.pacs.utils.MessageUtils;
-import com.pacs.utils.NavigationConstants;
 
 
 @ManagedBean(name="adminBean")
@@ -76,21 +76,21 @@ public class AdminBean
 		
 		if(toAddUser==null || toAddUser.getUserId()==null || toAddUser.getUserId().trim().length()<1)
 		{
-			MessageUtils.error(MessageConstants.Messages.INVALID_USERNAME);
+			MessageUtils.error(BaseerahConstants.Messages.INVALID_USERNAME);
 			return "";
 		}
 		
 		if(bll.addNewUser(toAddUser))
 		{
-//			FacesUtils.addInfoMessage("Login credentials", MessageConstants.Messages.SAVE_SUCCESS);
-			MessageUtils.info(MessageConstants.Messages.SAVE_SUCCESS);
+//			FacesUtils.addInfoMessage("Login credentials", BaseerahConstants.Messages.SAVE_SUCCESS);
+			MessageUtils.info(BaseerahConstants.Messages.SAVE_SUCCESS);
 			this.toAddUser = new ApplicationUsers();
 			
 		}
 		else
 		{
-//			FacesUtils.addErrorMessage("Login credentials", MessageConstants.Messages.SAVE_FAILURE);
-			MessageUtils.error(MessageConstants.Messages.SAVE_FAILURE);
+//			FacesUtils.addErrorMessage("Login credentials", BaseerahConstants.Messages.SAVE_FAILURE);
+			MessageUtils.error(BaseerahConstants.Messages.SAVE_FAILURE);
 		}
 		
 		return "";
@@ -128,14 +128,14 @@ public class AdminBean
 		AdminBll bll =new AdminBll();
 		if(usersList.size()>0 &&  bll.updateUsers(usersList))
 		{
-//			FacesUtils.addInfoMessage(MessageConstants.Messages.UPDATE_SUCCESS);
-			MessageUtils.info(MessageConstants.Messages.UPDATE_SUCCESS);
+//			FacesUtils.addInfoMessage(BaseerahConstants.Messages.UPDATE_SUCCESS);
+			MessageUtils.info(BaseerahConstants.Messages.UPDATE_SUCCESS);
 			this.usersList = bll.searchAllUser(toSearchUser);			
 		}
 		else
 		{
-//			FacesUtils.addErrorMessage(MessageConstants.Messages.UPDATE_FAILURE);
-			MessageUtils.error(MessageConstants.Messages.UPDATE_FAILURE);
+//			FacesUtils.addErrorMessage(BaseerahConstants.Messages.UPDATE_FAILURE);
+			MessageUtils.error(BaseerahConstants.Messages.UPDATE_FAILURE);
 		}
 
 		return "";
@@ -151,14 +151,14 @@ public class AdminBean
 		newPassword = Environment.getDefaultPassword();
 		if(bll.changePassword(toSearchUser,newPassword))
 		{
-//			FacesUtils.addInfoMessage("Login credentials", MessageConstants.Messages.UPDATE_SUCCESS);
-			MessageUtils.info(MessageConstants.Messages.UPDATE_SUCCESS);
+//			FacesUtils.addInfoMessage("Login credentials", BaseerahConstants.Messages.UPDATE_SUCCESS);
+			MessageUtils.info(BaseerahConstants.Messages.UPDATE_SUCCESS);
 			return NavigationConstants.ADMIN_MANAGE_USERS_NAVIGATION;			
 		}
 		else
 		{
-//			FacesUtils.addErrorMessage("Login credentials", MessageConstants.Messages.UPDATE_FAILURE);
-			MessageUtils.error(MessageConstants.Messages.UPDATE_FAILURE);
+//			FacesUtils.addErrorMessage("Login credentials", BaseerahConstants.Messages.UPDATE_FAILURE);
+			MessageUtils.error(BaseerahConstants.Messages.UPDATE_FAILURE);
 		}
 
 		return "";
@@ -174,7 +174,7 @@ public class AdminBean
 				)
 		{
 //			FacesUtils.addErrorMessage("Login credentials", "Invalid Password");
-			MessageUtils.error(MessageConstants.Messages.INVALID_PASSWORD);
+			MessageUtils.error(BaseerahConstants.Messages.INVALID_PASSWORD);
 			return "";
 		}
 		
@@ -186,12 +186,12 @@ public class AdminBean
 		
 		if(bll.changePassword(currentUser,newPassword))
 		{
-			MessageUtils.info(MessageConstants.Messages.UPDATE_SUCCESS);
+			MessageUtils.info(BaseerahConstants.Messages.UPDATE_SUCCESS);
 			return "";//NavigationConstants.HOME_NAVIGATION;			
 		}
 		else
 		{
-			MessageUtils.error(MessageConstants.Messages.UPDATE_FAILURE);
+			MessageUtils.error(BaseerahConstants.Messages.UPDATE_FAILURE);
 		}
 
 		return "";

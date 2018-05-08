@@ -3,7 +3,7 @@ package com.baseerah.ui.beans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.pacs.utils.Environment;
+import com.baseerah.utils.Environment;
 
 
 @ManagedBean(name= "envmtBean")

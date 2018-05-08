@@ -9,9 +9,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.baseerah.ui.beans.admin.CriteriaBean;
+import com.baseerah.utils.BaseerahConstants;
+import com.baseerah.utils.NavigationConstants;
 import com.iac.web.util.FacesUtils;
-import com.pacs.utils.MessageConstants;
-import com.pacs.utils.NavigationConstants;
 
 /**
  * @author 
@@ -38,28 +38,12 @@ public class PageNavigationBean implements Serializable
 		System.out.println("PageNavigationBean defaultPage.xhtml");
 //		(( AddPlannerBean )FacesUtils.getManagedBean( "addPlannerBean" ) ).searchCurrentCmts();
 		pageName = NavigationConstants.HOME_NAVIGATION;
-//		pageTitle = MessageConstants.Constants.PageTitles.HOME_PAGE;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.HOME_PAGE);
+//		pageTitle = BaseerahConstants.Constants.PageTitles.HOME_PAGE;
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.HOME_PAGE);
 		return pageName;
 	}
 	
-	public String navDisplayPage() {
-		System.out.println("PageNavigationBean displayPage.xhtml");
-//		(( AddPlannerBean )FacesUtils.getManagedBean( "addPlannerBean" ) ).searchCurrentCmts();
-		pageName = NavigationConstants.DISPLAY_NAVIGATION;
-//		pageTitle = MessageConstants.Constants.PageTitles.HOME_PAGE;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.HOME_PAGE);
-		return pageName;
-	}
 	
-	public String navDashBoardPage() 
-	{
-		System.out.println("PageNavigationBean dashBoard.xhtml");
-		FacesUtils.resetManagedBean("chartBean");
-		pageName = NavigationConstants.ADMIN_DASHBOARD_NAVIGATION;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.DASHBOARD);
-		return pageName;
-	}
 	
 	public String navLogOut() {
 		System.out.println("PageNavigationBean logout.xhtml");
@@ -77,26 +61,28 @@ public class PageNavigationBean implements Serializable
 		FacesUtils.resetManagedBean("searchBean");
 		
 		pageName = NavigationConstants.SEARCH_NAVIGATION;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.SEARCH);
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.SEARCH_INDL);
 		return pageName;
 	}
 	
-	public String navRecycleBinPage() 
+	public String navSearchNotificationPage() 
 	{
-		System.out.println("PageNavigationBean search/recycleBinData.xhtml");
+		System.out.println("PageNavigationBean search/searchNotification.xhtml");
 		FacesUtils.resetManagedBean("searchBean");
 		
-		pageName = NavigationConstants.RECYCLE_BIN_NAVIGATION;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.RECYCLE_BIN);
+		pageName = NavigationConstants.SEARCH_NOTIFICATION;
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.SEARCH_NOTIFICATION);
 		return pageName;
 	}
+	
+	
 
 	public String navAdminAddUsersPage() {
 		System.out.println("PageNavigationBean admin/addUsers.xhtml");
 		FacesUtils.resetManagedBean("adminBean");
 		
 		pageName = NavigationConstants.ADMIN_ADD_USERS_NAVIGATION;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.ADMIN);
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.ADMIN);
 		return pageName;
 	}
 	
@@ -104,14 +90,14 @@ public class PageNavigationBean implements Serializable
 		System.out.println("PageNavigationBean admin/manageUsers.xhtml");
 		FacesUtils.resetManagedBean("adminBean");
 		pageName = NavigationConstants.ADMIN_MANAGE_USERS_NAVIGATION;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.ADMIN);
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.ADMIN);
 		return pageName;
 	}
 	
 	public String navAdminManageUsersDetailsPage() {
 		System.out.println("PageNavigationBean admin/manageUsersDetails.xhtml");
 		pageName = NavigationConstants.ADMIN_MANAGE_USERS_DETAILS_NAVIGATION;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.ADMIN);
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.ADMIN);
 		return pageName;
 	}
 
@@ -119,7 +105,7 @@ public class PageNavigationBean implements Serializable
 		System.out.println("PageNavigationBean admin/modalityAlias.xhtml");
 		FacesUtils.resetManagedBean("adminBean");
 		pageName = NavigationConstants.ADMIN_MODALITY_ALIAS_NAVIGATION;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.ADMIN);
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.ADMIN);
 		return pageName;
 	}
 	
@@ -128,7 +114,7 @@ public class PageNavigationBean implements Serializable
 	{
 		FacesUtils.resetManagedBean("adminBean");
 		pageName = NavigationConstants.ADMIN_CHANGE_PASSWORD;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.ADMIN);
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.ADMIN);
 		return pageName;
 	}
 	
@@ -136,7 +122,7 @@ public class PageNavigationBean implements Serializable
 	{
 		FacesUtils.resetManagedBean("resetClientBean");
 		pageName = NavigationConstants.ADMIN_RESET_CLIENT;
-		cb.setPageTitle(MessageConstants.Constants.PageTitles.ADMIN);
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.ADMIN);
 		return pageName;
 	}
 

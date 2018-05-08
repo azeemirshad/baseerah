@@ -1,0 +1,99 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/includes/templatePageTiles.xhtml">
+
+	<ui:define name="content">
+
+<h:form id="form1">
+ <p:growl id="msgs" showDetail="true"/>
+	<p:defaultCommand target="btnSearch" />	
+		 	
+  	<p:panel id="panel2"   style="text-align: center;">
+  				
+		<p:commandButton value="Compose" icon="fa fa-fw fa-plus" update="tbl2" id="btnSearch" 
+  					action="#{notificationBean.createNotification}" style="height: 3em;"/>
+ 
+ 	</p:panel>
+  
+	<p:dataTable value="#{notificationBean.notificationList}" var="noti" 
+  					editable="true"
+					paginatorPosition="top" rows="20"
+					rowsPerPageLabel=" Rows" 
+					rowsPerPageTemplate="10,20,50"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+					id="tbl2" >
+		 
+		
+		
+		<p:column headerText="ID" sortBy="#{noti.basNotif.id}" filterBy="#{noti.basNotif.id}" 
+ 					filterMatchMode="contains" width="5%">
+	            <h:outputText style="font-size:14px;" value="#{noti.basNotif.id}" />
+        </p:column>
+		<p:column headerText="Message" sortBy="#{noti.fcmNotification.notification.title}" filterBy="#{noti.fcmNotification.notification.title}" 
+			filterMatchMode="contains" >
+			<p:panelGrid columns="1">
+				<h:outputText style="font-size:12px;font-weight:bold !important;"  value="#{noti.fcmNotification.notification.title}" />
+				<h:outputText style="font-size:12px;" value="#{noti.fcmNotification.notification.body}" />
+            </p:panelGrid>
+        </p:column>
+	        
+				        
+		<p:column headerText="Delivery Date"   sortBy="#{noti.basNotif.deliveryDate}" filterBy="#{noti.basNotif.deliveryDate}" 
+			filterMatchMode="contains" width="15%">
+				<h:outputText style="font-size:14px;" value="#{noti.basNotif.deliveryDate}" >
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"></f:convertDateTime>
+				</h:outputText>
+            
+	    </p:column>
+	    
+	    <p:column headerText="Status" sortBy="#{noti.basNotif.status}" filterBy="#{noti.basNotif.status}" 
+			filterMatchMode="contains" width="10%">
+			<h:outputText style="font-size:14px;" value="#{noti.basNotif.status}" />
+            
+        </p:column>
+        
+	    <p:column width="10%" >
+			<center>
+			<p:commandButton action="#{notificationBean.resendNotification}" update="tbl2"  class="btn btn-danger"
+		     icon="fa fa-fw fa-send-o fa-lg" title="Resend Notification" style="height:2em;" rendered="#{noti.basNotif.status == 'Pending'}">
+		    
+		    	<f:setPropertyActionListener value="#{noti}" 
+		            target="#{notificationBean.notificationWf}">
+  					</f:setPropertyActionListener>
+		    </p:commandButton>
+		    <p:spacer width="5px"></p:spacer>
+		    <p:commandButton action="#{notificationBean.duplicateNotification}" update="tbl2"  class="btn btn-danger"
+		     icon="fa fa-fw fa-retweet fa-lg" title="Duplicate Notification" style="height:2em;">
+		    
+		    	<f:setPropertyActionListener value="#{noti}" 
+		            target="#{notificationBean.notificationWf}">
+  					</f:setPropertyActionListener>
+		    </p:commandButton>
+		    <p:spacer width="5px"></p:spacer>
+			<p:commandButton action="#{notificationBean.deleteNotification}" update="tbl2"  class="btn btn-danger"
+		     icon="fa fa-fw fa-trash-o fa-lg" title="Delete Notification" style="height:2em;">
+		    
+		    	<f:setPropertyActionListener value="#{noti}" 
+		            target="#{notificationBean.notificationWf}">
+  					</f:setPropertyActionListener>
+		    </p:commandButton>
+		    
+           	</center>
+        </p:column>
+				    
+	</p:dataTable>
+				
+				
+    			
+	<br/>
+						
+</h:form>
+
+</ui:define>
+</ui:composition>
+

@@ -11,6 +11,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baseerah.utils.Environment;
+
 public class ViewScannedFilesUtils 
 {
 	private int fileMaxSize = Integer.valueOf(Environment.getFileMaxSize());

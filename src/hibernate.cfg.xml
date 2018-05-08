@@ -15,6 +15,7 @@
   
   <mapping class="com.pacs.dal.dao.ApplicationUsers"/>
   <mapping class="com.baseerah.dal.dao.UserProfile"/>
+  <mapping class="com.baseerah.dal.dao.BaseerahNotification"/>
   
  </session-factory>
 </hibernate-configuration>

@@ -20,12 +20,13 @@ import org.primefaces.model.DualListModel;
 
 
 
+
+
+import com.baseerah.utils.Environment;
+import com.baseerah.utils.BaseerahConstants;
 //import com.lowagie.text.pdf.PRStream;
 import com.pacs.dal.dao.ApplicationUsers;
-
-import com.pacs.utils.Environment;
 import com.pacs.utils.HibernateUtilsAnnot;
-import com.pacs.utils.MessageConstants;
 import com.pacs.utils.MessageUtils;
 
 
@@ -57,7 +58,7 @@ public class AdminBll
 				return false;
 			}
 //			StrongTextEncryptor textEncryptor = new StrongTextEncryptor();
-//			textEncryptor.setPassword(MessageConstants.Constants.PASSWORD_KEY);
+//			textEncryptor.setPassword(BaseerahConstants.Constants.PASSWORD_KEY);
 //			String myEncryptedText = textEncryptor.encrypt(Environment.getDefaultPassword());
 //			toAddUser.setPassword(myEncryptedText);
 			String hashedPassword = computeHashedPassword(Environment.getDefaultPassword());

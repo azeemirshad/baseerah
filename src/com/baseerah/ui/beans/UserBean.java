@@ -20,13 +20,13 @@ import org.jasypt.util.text.StrongTextEncryptor;
 import org.primefaces.showcase.view.misc.ThemeSwitcherView;
 
 import com.baseerah.dal.UserDal;
+import com.baseerah.utils.Environment;
+import com.baseerah.utils.BaseerahConstants;
+import com.baseerah.utils.NavigationConstants;
 import com.iac.web.util.FacesUtils;
 import com.pacs.dal.dao.ApplicationUsers;
-import com.pacs.utils.Environment;
 import com.pacs.utils.HibernateUtilsAnnot;
-import com.pacs.utils.MessageConstants;
 import com.pacs.utils.MessageUtils;
-import com.pacs.utils.NavigationConstants;
 
 
 @ManagedBean (name = "userBean" )
@@ -66,8 +66,8 @@ public class UserBean
 		String password = this.toSearchUser.getPassword();
 		if (password == null || password.trim().length() == 0 ) 
 		{
-//			FacesUtils.addErrorMessage("Login credentials", MessageConstants.Messages.INVALID_VALUE);
-			MessageUtils.error(MessageConstants.Messages.INVALID_VALUE);
+//			FacesUtils.addErrorMessage("Login credentials", BaseerahConstants.Messages.INVALID_VALUE);
+			MessageUtils.error(BaseerahConstants.Messages.INVALID_VALUE);
 			return NavigationConstants.FAILURE;
 		} 
 		else 
@@ -98,14 +98,14 @@ public class UserBean
 				}
 				else 
 				{
-					MessageUtils.error(MessageConstants.Messages.INVALID_PASSWORD);
+					MessageUtils.error(BaseerahConstants.Messages.INVALID_PASSWORD);
 					return  "";
 				}
 				
 			}
 			else 
 			{
-				MessageUtils.error(MessageConstants.Messages.INVALID_USERNAME);
+				MessageUtils.error(BaseerahConstants.Messages.INVALID_USERNAME);
 				return  "";
 			}
 			}

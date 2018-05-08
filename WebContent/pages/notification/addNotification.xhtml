@@ -1,0 +1,81 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePageTiles.xhtml">
+		
+<ui:define name="content">
+
+<h:form>
+  
+
+	<p:panel id="panel1"  header="#{crit.pageTitle}" style="text-align: center;">
+	<p:panelGrid style="margin-top:20px;text-align:left; width: 90%; margin: 0 auto" columns="2">
+		<p:panelGrid style="margin-top:20px;text-align:left; width: 45%; margin: 0 auto" columns="1"
+			columnClasses="notifyColumns">
+					
+			<p:outputLabel style="font-size:20px !important" value="Topic"></p:outputLabel>
+			<p:outputLabel value="#{notificationBean.topic}"></p:outputLabel>
+				
+			<p:outputLabel style="font-size:20px !important" value="Title"></p:outputLabel>
+			<p:inputText style="width:400px;" value="#{notificationBean.notificationWf.fcmNotification.notification.title}"></p:inputText>
+		
+			<p:outputLabel style="font-size:20px !important" value="Body"></p:outputLabel>
+			<p:inputTextarea style="width:400px;" rows="5"  cols="100" counter="display" maxlength="100" counterTemplate="{0} characters remaining." 
+				value="#{notificationBean.notificationWf.fcmNotification.notification.body}" autoResize="false" />
+    		<h:outputText id="display" />
+				
+	
+ 		</p:panelGrid>
+ 		
+ 		<p:panelGrid style="margin-top:20px;text-align:left; width: 45%; margin: 0 auto" columns="1"
+			columnClasses="notifyColumns">
+					
+			<p:outputLabel style="font-size:20px !important" value="Custom Fields"></p:outputLabel>
+			
+			<p:commandButton action="#{notificationBean.addCustomField}" update="tblCustom"  class="btn btn-info" ajax="true"
+		     			icon="fa fa-fw fa-plus fa-lg" title="Add Custom Field" style="height:2em;" value="Add Row">
+		    </p:commandButton>
+           	
+			<p:dataTable value="#{notificationBean.notificationWf.fcmNotification.data}" var="dat" style="width:480px;"
+  					editable="true"
+					id="tblCustom" >
+		 			<p:column headerText="Key" width="15%">
+				        <p:inputText value="#{dat.key}" style="width:100%"/>
+			        </p:column>
+					<p:column headerText="Value" >
+						<p:inputText value="#{dat.value}" style="width:100%"/>
+			        </p:column>
+			        <p:column  width="10%" >
+						<center>
+						<p:commandButton action="#{notificationBean.deletePair}" update="tblCustom"  class="btn btn-danger"
+					     icon="fa fa-fw fa-trash-o fa-lg" title="Delete Row" style="height:2em;">
+					    
+					    	<f:setPropertyActionListener value="#{dat}" 
+					            target="#{notificationBean.selectedPair}">
+			  					</f:setPropertyActionListener>
+					    </p:commandButton>
+			           	</center>
+        			</p:column>
+			</p:dataTable>
+	
+ 		</p:panelGrid>
+ 		</p:panelGrid>
+ 	</p:panel>
+ 
+ 
+ 
+  	<p:commandButton value="Send" action="#{notificationBean.sendNotification}" icon="fa fa-fw fa-save" >
+  		<p:confirm header="Confirmation" message="Are you sure you want to send this notification?" icon="fa fa-fw fa-exclamation-triangle" />
+  	</p:commandButton>
+  	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background-color: #3a578c !important;">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-fw fa-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-fw fa-close" />
+    </p:confirmDialog>
+  	
+</h:form>
+</ui:define>
+</ui:composition>
+

@@ -11,8 +11,10 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 
 
-import com.pacs.utils.Environment;
-import com.pacs.utils.MessageConstants;
+
+
+import com.baseerah.utils.Environment;
+import com.baseerah.utils.BaseerahConstants;
 
 
 @ManagedBean(name= "crit")
@@ -73,9 +75,9 @@ public class CriteriaBean
 	{
 		if(this.twoOptionsList.size()==0)
 		{
-			this.twoOptionsList.add(new SelectItem("",MessageConstants.Constants.SELECT_ONE_STRING));
-			this.twoOptionsList.add(new SelectItem(MessageConstants.Constants.YES_STRING,MessageConstants.Constants.YES_STRING));
-			this.twoOptionsList.add(new SelectItem(MessageConstants.Constants.NO_STRING,MessageConstants.Constants.NO_STRING));
+			this.twoOptionsList.add(new SelectItem("",BaseerahConstants.Constants.SELECT_ONE_STRING));
+			this.twoOptionsList.add(new SelectItem(BaseerahConstants.Constants.YES_STRING,BaseerahConstants.Constants.YES_STRING));
+			this.twoOptionsList.add(new SelectItem(BaseerahConstants.Constants.NO_STRING,BaseerahConstants.Constants.NO_STRING));
 		}
 		return twoOptionsList;
 	}
@@ -91,9 +93,9 @@ public class CriteriaBean
 	{
 		if(this.negPosOptionsList.size() == 0)
 		{
-			this.negPosOptionsList.add(new SelectItem("", MessageConstants.Constants.SELECT_ONE_STRING));
-			this.negPosOptionsList.add(new SelectItem(MessageConstants.Constants.NEGATIVE_STRING, MessageConstants.Constants.NEGATIVE_STRING));
-			this.negPosOptionsList.add(new SelectItem(MessageConstants.Constants.POSITIVE_STRING, MessageConstants.Constants.POSITIVE_STRING));
+			this.negPosOptionsList.add(new SelectItem("", BaseerahConstants.Constants.SELECT_ONE_STRING));
+			this.negPosOptionsList.add(new SelectItem(BaseerahConstants.Constants.NEGATIVE_STRING, BaseerahConstants.Constants.NEGATIVE_STRING));
+			this.negPosOptionsList.add(new SelectItem(BaseerahConstants.Constants.POSITIVE_STRING, BaseerahConstants.Constants.POSITIVE_STRING));
 		}
 		return negPosOptionsList;
 	}
@@ -143,9 +145,9 @@ public class CriteriaBean
 	{
 		if(this.threeOptionsList.size()==0)
 		{
-			this.threeOptionsList.add(new SelectItem(MessageConstants.Constants.NA_STRING,MessageConstants.Constants.NA_STRING));
-			this.threeOptionsList.add(new SelectItem(MessageConstants.Constants.YES_STRING,MessageConstants.Constants.YES_STRING));
-			this.threeOptionsList.add(new SelectItem(MessageConstants.Constants.NO_STRING,MessageConstants.Constants.NO_STRING));
+			this.threeOptionsList.add(new SelectItem(BaseerahConstants.Constants.NA_STRING,BaseerahConstants.Constants.NA_STRING));
+			this.threeOptionsList.add(new SelectItem(BaseerahConstants.Constants.YES_STRING,BaseerahConstants.Constants.YES_STRING));
+			this.threeOptionsList.add(new SelectItem(BaseerahConstants.Constants.NO_STRING,BaseerahConstants.Constants.NO_STRING));
 		}
 		return threeOptionsList;
 	}
@@ -165,7 +167,7 @@ public class CriteriaBean
 	public boolean isSyncStatusOption() 
 	{
 		if(Environment.getSyncStatusOption()!=null && Environment.getSyncStatusOption().trim().length()>0
-				&& Environment.getSyncStatusOption().equalsIgnoreCase(MessageConstants.Constants.TRUE_STRING))
+				&& Environment.getSyncStatusOption().equalsIgnoreCase(BaseerahConstants.Constants.TRUE_STRING))
 		{
 			this.syncStatusOption=true;
 		}
