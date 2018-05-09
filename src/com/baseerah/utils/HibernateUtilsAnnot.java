@@ -1,4 +1,4 @@
-package com.pacs.utils;
+package com.baseerah.utils;
 
 import org.hibernate.FlushMode;
 import org.hibernate.Interceptor;

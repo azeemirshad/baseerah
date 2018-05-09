@@ -10,9 +10,9 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import com.baseerah.utils.HibernateUtilsAnnot;
 import com.mysql.fabric.xmlrpc.base.Array;
 import com.pacs.dal.dao.ApplicationUsers;
-import com.pacs.utils.HibernateUtilsAnnot;
 public class UserDal 
 {
 	

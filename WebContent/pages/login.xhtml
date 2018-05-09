@@ -18,7 +18,9 @@
   height: 100vh;
   /* background: url(#{request.contextPath}/resources/images/baseerahbanner.jpg); */
   /*background: url("insignia.jpg") 50% fixed;*/
-  background-size: 100% auto;
+  background: linear-gradient(to bottom right, #191654 0%, #43c6ac 100%);
+  background-size: cover;
+  
 }
 
 @keyframes spinner {
@@ -207,9 +209,10 @@ footer a, footer a:link {
   		<h:messages style="color:red !important;" severity="info, error, fatal" id="messag"
   			showDetail="true" autoUpdate="true" closable="true" />
   		<div align="center">
-    	<h1 style="font-size:24px;font-weight:bold;">Welcome to  
-    	<p:outputLabel value="#{envmtBean.applFullName}"/>
-    	</h1>
+    	<!-- <h1 style="font-size:24px;font-weight:bold;">Welcome   -->
+    	<p:graphicImage name="/images/login.jpg" height="200px"></p:graphicImage>
+    	<!-- <p:outputLabel value="#{envmtBean.applFullName}"/>
+    	</h1> -->
   	</div>	
     <p class="title">Log in</p>
     <p:inputText  value="#{userBean.toSearchUser.userId}" label="Username" placeholder="Username"  ></p:inputText>
@@ -222,10 +225,10 @@ footer a, footer a:link {
    
  
   
-    <h:commandButton action="#{userBean.loginAction}" onclick="runAuthenticating();" id="btnLogin" value="Log in" >
+    <p:commandButton action="#{userBean.loginAction}" onclick="runAuthenticating();" id="btnLogin" value="Log in" >
      
       
-    </h:commandButton>
+    </p:commandButton>
     <button id="btn" style="display: none;">
       <i class="spinner"></i>
       <span class="state">Log in</span>

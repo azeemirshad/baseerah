@@ -70,31 +70,20 @@ public final class BaseerahConstants {
 		
 		public static final class PageTitles 
 		{			
-			public static final String HOME_PAGE = "RIC PACS Solution - WELCOME";
-			public static final String ADD_PLAN = "Add New IHD / CMT";
-			public static final String UPDATE_PLAN = "Update Existing IHD/CMT";
-			public static final String UPLOAD_SCANNED = "Upload Scanned Files";
+			public static final String HOME_PAGE = "Baseerah - WELCOME";
+			public static final String ADD_NOTIFICATION = "Add New Notification";
+			
 			
 			public static final String RESET_REPEATER = "Reset Repeater Clients";
 			
-			public static final String CASH_PAYMENT = "Cash and Accounts";
-			
-			public static final String GPE_XRAY = "G.P.E";
-			
-			public static final String RADIOLOGY = "Radiology";
-			
-			public static final String SAMPLE_COLLECTION = "Sample Collection";
-			public static final String LAB_MGMT = "Lab Mgmt.";
-			
-			public static final String PATHOLOGY = "Pathology";
-			
-			public static final String DIRECTOR = "Director's Declaration";
-			
-			public static final String PRINT_REPORT = "Print Report";
 			
 			public static final String SEARCH_INDL = "Search Individual";
 			
 			public static final String SEARCH_NOTIFICATION = "Search Notification";
+			
+			public static final String SEARCH_EVENT = "Search Event/Course";
+			
+			public static final String ADD_EVENT = "Add Event/Course";
 			
 			public static final String RECYCLE_BIN = "Recycle Bin";
 			

@@ -29,7 +29,7 @@
     </script>
 
 	<h:outputStylesheet library="css" name="grid.css" />
-	<h:outputStylesheet library="css" name="style2.css" />
+	
 	
 	
 	<h:outputScript library="js" name="moment.min.js" ></h:outputScript>
@@ -94,7 +94,10 @@
 						ajax="true" name="pageViewID"
 						action="#{notificationBean.searchNotification}" update=":content" />
 										
-				 
+				 <p:menuitem value="Events / Courses" icon="fa fa-fw fa-graduation-cap"
+						ajax="true" name="pageViewID"
+						action="#{eventsBean.searchEvent}" update=":content" />
+										
 					
 					
 					

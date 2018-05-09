@@ -1,0 +1,104 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/includes/templatePageTiles.xhtml">
+
+	<ui:define name="content">
+
+<h:form id="form1">
+ <p:growl id="msgs" showDetail="true"/>
+	<p:defaultCommand target="btnSearch" />	
+		 	
+  	<p:panel id="panel2"   style="text-align: center;">
+  				
+		<p:commandButton value="Add New Event/Course" icon="fa fa-fw fa-plus" update="tbl2" id="btnSearch" 
+  					action="#{eventsBean.createEvent}" style="height: 3em;"/>
+ 
+ 	</p:panel>
+  
+	<p:dataTable value="#{eventsBean.eventList}" var="noti" 
+  					editable="true"
+					paginatorPosition="top" rows="20"
+					rowsPerPageLabel=" Rows" 
+					rowsPerPageTemplate="10,20,50"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					id="tbl2" >
+		 
+		
+		
+		<p:column headerText="ID" sortBy="#{noti.id}" filterBy="#{noti.id}" 
+ 					filterMatchMode="contains" width="5%">
+	            <h:outputText style="font-size:14px;" value="#{noti.id}" />
+        </p:column>
+		<p:column headerText="Title" sortBy="#{noti.title}" filterBy="#{noti.title}" 
+			filterMatchMode="contains" >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{noti.title}" />
+			
+        </p:column>
+	        
+				        
+		<p:column headerText="From Date"   sortBy="#{noti.fromDate}" filterBy="#{noti.fromDate}" 
+			 filterMatchMode="contains" width="15%">
+				<h:outputText style="font-size:14px;" value="#{noti.fromDate}" >
+					<f:convertDateTime pattern="dd MMM yyyy HH:mm"></f:convertDateTime>
+				</h:outputText>
+            
+	    </p:column>
+	    
+	    <p:column headerText="To Date"   sortBy="#{noti.toDate}" filterBy="#{noti.toDate}" 
+			 width="15%">
+				<h:outputText style="font-size:14px;" value="#{noti.toDate}" >
+					<f:convertDateTime pattern="dd MMM yyyy HH:mm"></f:convertDateTime>
+				</h:outputText>
+            
+	    </p:column>
+	    
+	  <p:column headerText="Institute" sortBy="#{noti.institute.name}" filterBy="#{noti.institute.name}" 
+			 >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{noti.institute.name}" />
+			
+        </p:column>
+        
+          <p:column headerText="Campus" sortBy="#{noti.campus.name}" filterBy="#{noti.campus.name}" 
+			filterMatchMode="contains" >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{noti.campus.name}" />
+			
+        </p:column>
+        
+	    <p:column width="10%" >
+			<center>
+			
+		    <p:commandButton action="#{eventsBean.editEvent}" class="btn btn-primary"
+		     icon="fa fa-fw fa-edit fa-lg" title="Edit Event/Course" style="height:2em;">
+		    
+		    	<f:setPropertyActionListener value="#{noti}" 
+		            target="#{eventsBean.selectedEvent}">
+  					</f:setPropertyActionListener>
+		    </p:commandButton>
+		    <p:spacer width="5px"></p:spacer>
+			<p:commandButton action="#{eventsBean.deleteEvent}" update="tbl2"  class="btn btn-danger"
+		     icon="fa fa-fw fa-trash-o fa-lg" title="Delete Event/Course" style="height:2em;">
+		    
+		    	<f:setPropertyActionListener value="#{noti}" 
+		              target="#{eventsBean.selectedEvent}">
+  					</f:setPropertyActionListener>
+		    </p:commandButton>
+		    
+           	</center>
+        </p:column>
+				    
+	</p:dataTable>
+				
+				
+    			
+	<br/>
+						
+</h:form>
+
+</ui:define>
+</ui:composition>
+

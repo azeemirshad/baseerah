@@ -1,0 +1,147 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePageTiles.xhtml">
+		
+<ui:define name="content">
+
+<h:form id="eventForm">
+  
+
+	<p:panel id="panel1"  header="#{crit.pageTitle}" style="text-align: center;">
+	
+		<p:panelGrid style="margin-top:20px;text-align:left; width: 45%; margin: 0 auto" 
+			columnClasses="notifyColumns">
+				
+			<p:row>		
+				<p:column><p:outputLabel style="font-size:20px !important" value="Title "></p:outputLabel></p:column>
+				<p:column colspan="3">
+				<p:inputText style="width:500px;" value="#{eventsBean.selectedEvent.title}" />
+				</p:column>
+				</p:row>
+			<p:row>
+			<p:column>
+			<p:outputLabel style="font-size:20px !important" value="From "></p:outputLabel></p:column>
+			<p:column><p:calendar id="fromdate" value="#{eventsBean.selectedEvent.fromDate}" pattern="dd MMM yyyy HH:mm"
+				navigator="true" />
+			</p:column>
+ 
+			<p:column>
+			<p:outputLabel for="todate" style="font-size:20px !important" value="To "></p:outputLabel></p:column>
+			<p:column><p:calendar id="todate" value="#{eventsBean.selectedEvent.toDate}" pattern="dd MMM yyyy HH:mm" navigator="true"
+				/></p:column>	
+			</p:row>
+			<p:row>
+			<p:column><p:outputLabel for="institute" style="font-size:20px !important" value="Institute "></p:outputLabel></p:column>
+			
+		<p:column>	<p:panel>
+				<p:selectOneMenu id="institute" value="#{eventsBean.selectedEvent.institute.id}" effect="fold" 
+				style="width:150px;">
+					 <p:ajax listener="#{eventsBean.onInstituteChange}" update="eventForm:campus" />
+	            	<f:selectItem itemLabel="Select One" itemValue="-1" />
+	            	<f:selectItems value="#{eventsBean.instituteItems}" />
+	       		</p:selectOneMenu>
+	       		<p:spacer width="5px"></p:spacer>
+	       		<p:commandButton onclick="PF('instituteDlg').show();"  class="btn btn-normal" immediate="true"
+			     icon="fa fa-fw fa-plus fa-lg" title="Add Institute" style="height:2em;"/>
+		    </p:panel>
+		    </p:column>
+       		
+       		<p:column><p:outputLabel for="campus" style="font-size:20px !important" value="Campus "></p:outputLabel></p:column>
+       		<p:column><p:panel style="align: center">
+				<p:selectOneMenu id="campus" value="#{eventsBean.selectedEvent.campus.id}" effect="fold" >
+					 
+	            	<f:selectItem itemLabel="Select One" itemValue="-1" />
+	            	<f:selectItems value="#{eventsBean.campusItems}" />
+	       		</p:selectOneMenu>
+	       		<p:spacer width="5px"></p:spacer>
+	       		<p:commandButton onclick="PF('campusDlg').show();"  class="btn btn-normal"  immediate="true"
+			     icon="fa fa-fw fa-plus fa-lg" title="Add Campus" style="height:2em;"/>
+			</p:panel>
+			</p:column>
+			</p:row>
+ 		</p:panelGrid>
+ 		
+ 	</p:panel>
+ 	<center>
+  	<p:commandButton value="Save" action="#{eventsBean.saveEvent}" icon="fa fa-fw fa-save" >
+  		<p:confirm header="Confirmation" message="Are you sure you want to save this event/course?" icon="fa fa-fw fa-exclamation-triangle" />
+  	</p:commandButton>
+  	</center>
+  	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background-color: #3a578c !important;">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-fw fa-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-fw fa-close" />
+    </p:confirmDialog>
+  	
+  	 
+    
+   
+   	
+</h:form>
+<p:dialog header="Institute" widgetVar="instituteDlg" resizable="false" 
+  	 style="background-color: #3a578c !important;margin:10px;">
+  	 	<h:form>
+        <p:spacer width="10px"></p:spacer> 
+        <h:panelGrid columns="2" cellpadding="5">
+            
+            <h:outputLabel for="name" value="Name:  " />
+            <p:inputText id="name" value="#{eventsBean.institute.name}" style="width:300px" required="true" label="name" />
+ 
+           </h:panelGrid>
+           <p:spacer width="10px"></p:spacer>
+            <h:panelGrid columns="1" cellpadding="5" style="align:center;">
+            <center>
+                <p:commandButton value="Add" update="eventForm:institute" action="#{eventsBean.addInstitute}"
+                                 oncomplete="PF('instituteDlg').hide();" />
+             </center>
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+ <p:dialog header="Campus" widgetVar="campusDlg" resizable="false" 
+    style="background-color: #3a578c !important;margin:10px;">
+    	<h:form id="campusForm">
+        <p:panelGrid columns="2" cellpadding="10px" cellspacing="10px" style="padding:4px 10px;">
+        	
+        	<p:outputLabel for="campusinstitute" style="font-size:20px !important" value="Institute "></p:outputLabel>
+			
+		
+			<p:selectOneMenu id="campusinstitute" value="#{eventsBean.campus.institute.id}" effect="fold" 
+				style="width:150px;">
+					 
+	            	<f:selectItem itemLabel="Select One" itemValue="-1" />
+	            	<f:selectItems value="#{eventsBean.instituteItems}" />
+	       	</p:selectOneMenu>
+            <h:outputLabel for="campusName" value="Name : " style="font-size:20px !important" />
+            <p:inputText id="campusName" value="#{eventsBean.campus.name}" required="true" label="campusName" style="width:300px" />
+             
+            <h:outputLabel for="campusAdd" value="Address : " style="font-size:20px !important" />
+            <p:inputTextarea id="campusAdd" value="#{eventsBean.campus.address}" required="true" label="campusAdd" style="width:300px"  />
+  		</p:panelGrid>
+            
+             <h:panelGrid columns="1" cellpadding="5" style="align:center;">
+            <center>
+               
+                <p:commandButton value="Add" action="#{eventsBean.addCampus}"  update="eventForm:campus"
+                                 oncomplete="PF('campusDlg').hide();" />
+            </center>
+            </h:panelGrid>
+       </h:form>
+    </p:dialog>
+<script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed ) {
+            alert('if');
+            PF('campusDlg').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('campusDlg').hide();
+           
+        }
+    }
+</script>
+</ui:define>
+</ui:composition>
+

@@ -1,4 +1,4 @@
-package com.pacs.utils;
+package com.baseerah.utils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

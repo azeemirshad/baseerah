@@ -22,11 +22,11 @@ import org.primefaces.showcase.view.misc.ThemeSwitcherView;
 import com.baseerah.dal.UserDal;
 import com.baseerah.utils.Environment;
 import com.baseerah.utils.BaseerahConstants;
+import com.baseerah.utils.HibernateUtilsAnnot;
+import com.baseerah.utils.MessageUtils;
 import com.baseerah.utils.NavigationConstants;
 import com.iac.web.util.FacesUtils;
 import com.pacs.dal.dao.ApplicationUsers;
-import com.pacs.utils.HibernateUtilsAnnot;
-import com.pacs.utils.MessageUtils;
 
 
 @ManagedBean (name = "userBean" )

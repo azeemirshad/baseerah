@@ -23,8 +23,8 @@ import org.primefaces.model.chart.DateAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
+import com.baseerah.utils.HibernateUtilsAnnot;
 import com.pacs.dal.dao.DashBoardTicketsCount;
-import com.pacs.utils.HibernateUtilsAnnot;
 
 public class DashboardBll 
 {

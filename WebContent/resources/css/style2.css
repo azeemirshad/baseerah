@@ -447,6 +447,11 @@ rotate
     font-weight: 600;
 }  
 
+.mycustomcalendar{
+	background-color: red !important;
+	color: black !important;
+}
+
 .tile_count .tile_stats_count span {
     font-size: 13px;
 }

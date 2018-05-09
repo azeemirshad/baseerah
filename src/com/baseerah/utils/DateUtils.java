@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pacs.utils;
+package com.baseerah.utils;
 
 /**
  * @author Analysis

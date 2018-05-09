@@ -67,11 +67,31 @@ public class PageNavigationBean implements Serializable
 	
 	public String navSearchNotificationPage() 
 	{
-		System.out.println("PageNavigationBean search/searchNotification.xhtml");
-		FacesUtils.resetManagedBean("searchBean");
+		System.out.println("PageNavigationBean notification/searchNotification.xhtml");
+//		FacesUtils.resetManagedBean("searchBean");
 		
 		pageName = NavigationConstants.SEARCH_NOTIFICATION;
 		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.SEARCH_NOTIFICATION);
+		return pageName;
+	}
+	
+	public String navSearchEventPage() 
+	{
+		System.out.println("PageNavigationBean events/searchEvent.xhtml");
+//		FacesUtils.resetManagedBean("searchBean");
+		
+		pageName = NavigationConstants.SEARCH_EVENT;
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.SEARCH_EVENT);
+		return pageName;
+	}
+	
+	public String navAddEventPage() 
+	{
+		System.out.println("PageNavigationBean events/addEvent.xhtml");
+//		FacesUtils.resetManagedBean("searchBean");
+		
+		pageName = NavigationConstants.ADD_EVENT;
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.ADD_EVENT);
 		return pageName;
 	}
 	

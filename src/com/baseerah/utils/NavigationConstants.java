@@ -13,6 +13,8 @@ public class NavigationConstants {
 	public static String HOME_NAVIGATION = "/pages/homePage.xhtml?faces-redirect=true";
 	public static String LOGOUT_NAVIGATION = "/pages/logout.xhtml?faces-redirect=true";	
 	
+	public static String ADD_EVENT = "/pages/events/addEvent.xhtml?faces-redirect=true";
+	
 	public static String ADD_NOTIFICATION = "/pages/notification/addNotification.xhtml?faces-redirect=true";
 	public static String UPDATE_CLIENT_NAVIGATION = "/pages/clients/updatePlanner.xhtml?faces-redirect=true";
 	public static String UPDATE_PLAN_DETAILS_NAVIGATION = "/pages/planner/updatePlannerDetails.xhtml?faces-redirect=true";
@@ -25,11 +27,8 @@ public class NavigationConstants {
 	public static String ADVANCE_SEARCH_DETAILS_NAVIGATION = "/pages/search/advanceSearchDetails.xhtml?faces-redirect=true";
 	
 	public static String SEARCH_NOTIFICATION = "/pages/notification/searchNotification.xhtml?faces-redirect=true";	
+	public static String SEARCH_EVENT = "/pages/events/searchEvent.xhtml?faces-redirect=true";
 	public static String SEARCH_NAVIGATION = "/pages/search/searchData.xhtml?faces-redirect=true";
-	public static String STUDY_DETAILS_NAVIGATION = "/pages/search/details/studyDetails.xhtml?faces-redirect=true";
-	public static String SERIES_DETAILS_NAVIGATION = "/pages/search/details/seriesDetails.xhtml?faces-redirect=true";
-	
-	public static String RECYCLE_BIN_NAVIGATION = "/pages/search/recycleBinData.xhtml?faces-redirect=true";
 	
 	public static String CONTACTUS_NAVIGATION = "/pages/contactUs.xhtml?faces-redirect=true";
 
