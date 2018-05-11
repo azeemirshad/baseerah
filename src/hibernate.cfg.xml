@@ -17,8 +17,11 @@
   <mapping class="com.baseerah.dal.dao.UserProfile"/>
   <mapping class="com.baseerah.dal.dao.BaseerahNotification"/>
   <mapping class="com.baseerah.dal.dao.Institute"/>
+  <mapping class="com.baseerah.dal.dao.EventType"/>
   <mapping class="com.baseerah.dal.dao.Campus"/>
   <mapping class="com.baseerah.dal.dao.Event"/>
+  <mapping class="com.baseerah.dal.dao.SourceType"/>
+  <mapping class="com.baseerah.dal.dao.UserEvent"/>
   
  </session-factory>
 </hibernate-configuration>

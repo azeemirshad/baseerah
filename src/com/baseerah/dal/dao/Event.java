@@ -40,11 +40,17 @@ public class Event
 	private Institute institute;
 	
 	@ManyToOne 
+	@JoinColumn (name = "event_type_id")
+	private EventType eventType;
+	
+	@ManyToOne 
 	@JoinColumn (name = "campus_id")
 	private Campus campus;
 	
 	@Column(name="title")
 	private String title;
+	
+	
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="from_date")
@@ -64,6 +70,7 @@ public class Event
 		// TODO Auto-generated constructor stub
 		institute = new Institute();
 		campus = new Campus();
+		eventType = new EventType();
 		isDelete = 0;
 	}
 
@@ -158,5 +165,20 @@ public class Event
 	public void setIsDelete(Integer isDelete) {
 		this.isDelete = isDelete;
 	}
+
+	/**
+	 * @return the eventType
+	 */
+	public EventType getEventType() {
+		return eventType;
+	}
+
+	/**
+	 * @param eventType the eventType to set
+	 */
+	public void setEventType(EventType eventType) {
+		this.eventType = eventType;
+	}
+
 
 }

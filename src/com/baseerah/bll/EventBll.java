@@ -32,6 +32,7 @@ import org.hibernate.criterion.Restrictions;
 import com.baseerah.dal.dao.BaseerahNotification;
 import com.baseerah.dal.dao.Campus;
 import com.baseerah.dal.dao.Event;
+import com.baseerah.dal.dao.EventType;
 import com.baseerah.dal.dao.Institute;
 import com.baseerah.dal.dao.KeyValuePair;
 import com.baseerah.dal.dao.NotificationWFObject;
@@ -101,6 +102,34 @@ public class EventBll
 			session = HibernateUtilsAnnot.currentSession();			
 			Criteria cr = session.createCriteria(Institute.class);
 			cr.addOrder(Order.asc("name"));
+//			cr.add(Restrictions.eq("isDelete", BaseerahConstants.DeleteStatus.No));
+			list = cr.list();
+			
+		}
+		catch(HibernateException e)
+		{
+			e.printStackTrace();
+			throw new Exception(e);
+//			return null;
+		}
+		finally
+		{
+			HibernateUtilsAnnot.closeSession();
+		}
+		
+		return list;
+	}
+	
+	public List<EventType> searchEventTypes() throws Exception
+	{
+		Session session = null;
+		List<EventType> list = new ArrayList<EventType>();
+		System.out.println("In searchEventTypes Method bll");
+		try
+		{
+			session = HibernateUtilsAnnot.currentSession();			
+			Criteria cr = session.createCriteria(EventType.class);
+			cr.addOrder(Order.asc("eventType"));
 //			cr.add(Restrictions.eq("isDelete", BaseerahConstants.DeleteStatus.No));
 			list = cr.list();
 			
@@ -238,6 +267,33 @@ public class EventBll
 		return true;
 	}
 	
+	public boolean addEventType(EventType notification) throws Exception
+	{
+		Session session = null;
+		Transaction tx = null;
+		System.out.println("In addEventType Method bll");
+		try
+		{
+			session = HibernateUtilsAnnot.currentSession();
+			tx = session.beginTransaction();
+			session.save(notification);
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			tx.rollback();
+			throw new Exception(e);
+//			return false;
+		}
+		finally
+		{
+			HibernateUtilsAnnot.closeSession();
+		}
+		
+		return true;
+	}
+	
 	public boolean addCampus(Campus campus) throws Exception
 	{
 		Session session = null;
@@ -276,12 +332,10 @@ public class EventBll
 			session = HibernateUtilsAnnot.currentSession();
 			tx = session.beginTransaction();
 			
-			session.save(notification);
+			session.saveOrUpdate(notification);
 			
 			tx.commit();
 		}
-		
-		
 		catch(Exception e)
 		{
 			e.printStackTrace();

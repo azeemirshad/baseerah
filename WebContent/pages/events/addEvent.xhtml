@@ -63,6 +63,21 @@
 			</p:panel>
 			</p:column>
 			</p:row>
+			<p:row>
+				<p:column><p:outputLabel for="eventtype" style="font-size:20px !important" value="Type: "></p:outputLabel></p:column>
+       			<p:column><p:panel style="align: center">
+				<p:selectOneMenu id="eventtype" value="#{eventsBean.selectedEvent.eventType.id}" effect="fold" >
+					 
+	            	<f:selectItem itemLabel="Select One" itemValue="-1" />
+	            	<f:selectItems value="#{eventsBean.eventTypeItems}" />
+	            	
+	       		</p:selectOneMenu>
+	       		<p:spacer width="5px"></p:spacer>
+	       		<p:commandButton onclick="PF('eventTypeDlg').show();"  class="btn btn-normal"  immediate="true"
+			     icon="fa fa-fw fa-plus fa-lg" title="Add Campus" style="height:2em;"/>
+			</p:panel>
+			</p:column>
+			</p:row>
  		</p:panelGrid>
  		
  	</p:panel>
@@ -100,6 +115,28 @@
             </h:panelGrid>
         </h:form>
     </p:dialog>
+    
+	<p:dialog header="Event Type" widgetVar="eventTypeDlg" resizable="false" 
+  	 style="background-color: #3a578c !important;margin:10px;">
+  	 	<h:form>
+        <p:spacer width="10px"></p:spacer> 
+        <h:panelGrid columns="2" cellpadding="5">
+            
+            <h:outputLabel for="eventTypename" value="Name:  " />
+            <p:inputText id="eventTypename" value="#{eventsBean.eventType.eventType}" style="width:300px" required="true" label="eventTypename" />
+ 
+           </h:panelGrid>
+           <p:spacer width="10px"></p:spacer>
+            <h:panelGrid columns="1" cellpadding="5" style="align:center;">
+            <center>
+                <p:commandButton value="Add" update="eventForm:eventtype" action="#{eventsBean.addEventType}"
+                                 oncomplete="PF('eventTypeDlg').hide();" />
+             </center>
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+    
+    
  <p:dialog header="Campus" widgetVar="campusDlg" resizable="false" 
     style="background-color: #3a578c !important;margin:10px;">
     	<h:form id="campusForm">

@@ -26,6 +26,7 @@ import com.baseerah.bll.SearchBll;
 import com.baseerah.dal.dao.BaseerahNotification;
 import com.baseerah.dal.dao.Campus;
 import com.baseerah.dal.dao.Event;
+import com.baseerah.dal.dao.EventType;
 import com.baseerah.dal.dao.Institute;
 import com.baseerah.dal.dao.KeyValuePair;
 import com.baseerah.dal.dao.NotificationWFObject;
@@ -57,11 +58,17 @@ public class EventsBean implements Serializable
 	
 	private List<SelectItem> campusItems;
 	
+	private List<SelectItem> eventTypeItems;
+	
 	private Institute institute;
+	
+	private EventType eventType;
 	
 	private Campus campus;
 	
 	private List<Campus> campuses =  new ArrayList<Campus>();
+	
+	private List<EventType> eventTypes =  new ArrayList<EventType>();
 	
 	private List<Event> eventList = new ArrayList<Event>();
 	
@@ -71,6 +78,7 @@ public class EventsBean implements Serializable
 		this.selectedEvent = new Event();
 		institute = new Institute();
 		campus = new Campus();
+		eventType = new EventType();
 	
 		
 	}
@@ -85,6 +93,12 @@ public class EventsBean implements Serializable
 			instituteItems = new ArrayList<>();
 			for (Institute institute : institutes) {
 				instituteItems.add(new SelectItem(institute.getId(), institute.getName()));
+			}
+			
+			this.eventTypes = new EventBll().searchEventTypes();
+			eventTypeItems = new ArrayList<>();
+			for (EventType type : eventTypes) {
+				eventTypeItems.add(new SelectItem(type.getId(), type.getEventType()));
 			}
 			
 			
@@ -128,6 +142,10 @@ public class EventsBean implements Serializable
 			{
 				bll.addInstitute(institute);
 				institutes = bll.searchInstitutes();
+				instituteItems = new ArrayList<>();
+				for (Institute institute : institutes) {
+					instituteItems.add(new SelectItem(institute.getId(), institute.getName()));
+				}
 				institute = new Institute();
 				MessageUtils.info("Institute added successfully");
 			}
@@ -137,7 +155,30 @@ public class EventsBean implements Serializable
 	 		FacesUtils.addErrorMessage(e.getMessage());
 			e.printStackTrace();
 		}
-	 }	
+	 }
+	 
+	 public void addEventType() {
+		 System.out.println("In addEventType method");
+		 EventBll bll = new EventBll();
+		 try {
+			if(eventType.getEventType() !=null && !eventType.getEventType().equals("") )
+			{
+				bll.addEventType(eventType);
+				eventTypes = bll.searchEventTypes();
+				eventTypeItems = new ArrayList<>();
+				for (EventType type : eventTypes) {
+					eventTypeItems.add(new SelectItem(type.getId(), type.getEventType()));
+				}
+				eventType = new EventType();
+				MessageUtils.info("Event type added successfully");
+			}
+			else
+				MessageUtils.info("You did not specify event type");
+		} catch (Exception e) {
+	 		FacesUtils.addErrorMessage(e.getMessage());
+			e.printStackTrace();
+		}
+	 }
 	 
 	 public void addCampus() {
 		 System.out.println("In addCampus method " + campus.getInstitute().getId());
@@ -148,6 +189,11 @@ public class EventsBean implements Serializable
 			{
 				bll.addCampus(campus);
 				campuses = bll.searchCampuses(selectedEvent.getInstitute());
+				campusItems = new ArrayList<>();
+				for (Campus campus : campuses) {
+					campusItems.add(new SelectItem(campus.getId(), campus.getName()));
+					
+				}
 				campus = new Campus();
 				MessageUtils.info("Campus added successfully");
 			}
@@ -167,6 +213,11 @@ public class EventsBean implements Serializable
 			{
 				bll.addCampus(campus);
 				campuses = bll.searchCampuses(selectedEvent.getInstitute());
+				campusItems = new ArrayList<>();
+				for (Campus campus : campuses) {
+					campusItems.add(new SelectItem(campus.getId(), campus.getName()));
+					
+				}
 				campus = new Campus();
 				MessageUtils.info("Campus added successfully");
 			}
@@ -182,6 +233,27 @@ public class EventsBean implements Serializable
 		
 		try {
 			this.institutes = new EventBll().searchInstitutes();
+			if(selectedEvent.getEventType() == null)
+			{
+				selectedEvent.setEventType(new EventType());
+			}
+			this.institutes = new EventBll().searchInstitutes();
+			instituteItems = new ArrayList<>();
+			for (Institute institute : institutes) {
+				instituteItems.add(new SelectItem(institute.getId(), institute.getName()));
+			}
+			
+			this.eventTypes = new EventBll().searchEventTypes();
+			eventTypeItems = new ArrayList<>();
+			for (EventType type : eventTypes) {
+				eventTypeItems.add(new SelectItem(type.getId(), type.getEventType()));
+			}
+			campuses = new EventBll().searchCampuses(selectedEvent.getInstitute());
+			campusItems = new ArrayList<>();
+			for (Campus campus : campuses) {
+				campusItems.add(new SelectItem(campus.getId(), campus.getName()));
+				
+			}
 		} catch (Exception e) {
 			FacesUtils.addErrorMessage(e.getMessage());
 			e.printStackTrace();
@@ -381,6 +453,48 @@ public class EventsBean implements Serializable
 	 */
 	public void setCampusItems(List<SelectItem> campusItems) {
 		this.campusItems = campusItems;
+	}
+
+	/**
+	 * @return the eventTypeItems
+	 */
+	public List<SelectItem> getEventTypeItems() {
+		return eventTypeItems;
+	}
+
+	/**
+	 * @param eventTypeItems the eventTypeItems to set
+	 */
+	public void setEventTypeItems(List<SelectItem> eventTypeItems) {
+		this.eventTypeItems = eventTypeItems;
+	}
+
+	/**
+	 * @return the eventTypes
+	 */
+	public List<EventType> getEventTypes() {
+		return eventTypes;
+	}
+
+	/**
+	 * @param eventTypes the eventTypes to set
+	 */
+	public void setEventTypes(List<EventType> eventTypes) {
+		this.eventTypes = eventTypes;
+	}
+
+	/**
+	 * @return the eventType
+	 */
+	public EventType getEventType() {
+		return eventType;
+	}
+
+	/**
+	 * @param eventType the eventType to set
+	 */
+	public void setEventType(EventType eventType) {
+		this.eventType = eventType;
 	}
 
 	
