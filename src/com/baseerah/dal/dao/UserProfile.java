@@ -28,6 +28,12 @@ public class UserProfile {
 	@Column(name="NAME")
 	private String name;
 	
+	@Column(name="email")
+	private String email;
+	
+	@Column(name="address")
+	private String address;
+	
 	@Column(name="DOB")
 	private Date dateOfBirth;
 	
@@ -261,6 +267,34 @@ public class UserProfile {
 	 */
 	public void setUserEvents(List<UserEvent> userEvents) {
 		this.userEvents = userEvents;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	

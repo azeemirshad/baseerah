@@ -78,18 +78,26 @@
 						
 						<f:ajax render=":content">
 			<p:menubar style="position:absolute;top:75%;left:2%;opacity:0.7;background: #8dc73d;">
+			
+			
+			
+			
+			
 				<p:menuitem value="Home" action="#{navBean.navSearchIndividualPage}"
 					update=":content" icon="fa fa-fw fa-home" rendered="true">
 				</p:menuitem>
 
-				
-					
-					
+			
+			<p:submenu label="Individual" icon="fa fa-fw fa-user">		
+					<p:menuitem value="Add Individual" icon="fa fa-fw fa-add"
+						ajax="true" name="pageViewID"
+						action="#{searchBean.createUserProfile}" update=":content" />
 					
 					<p:menuitem value="Search Individual" icon="fa fa-fw fa-search"
 						ajax="true" name="pageViewID"
 						action="#{navBean.navSearchIndividualPage}" update=":content" />
-						
+				</p:submenu>	
+							
 					<p:menuitem value="Notification" icon="fa fa-fw fa-search"
 						ajax="true" name="pageViewID"
 						action="#{notificationBean.searchNotification}" update=":content" />
@@ -128,7 +136,7 @@
 		</f:ajax>
 						</div> 
 				 </div>
-		<p:messages severity="info, error, fatal"   
+		<p:messages severity="info, error, fatal"   id="msgs"
   			showDetail="true" autoUpdate="true" closable="true" />		
 				
 			<!--  ui:include src="/pages/includes/header.xhtml" / -->

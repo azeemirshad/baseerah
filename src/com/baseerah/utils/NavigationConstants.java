@@ -28,7 +28,9 @@ public class NavigationConstants {
 	
 	public static String SEARCH_NOTIFICATION = "/pages/notification/searchNotification.xhtml?faces-redirect=true";	
 	public static String SEARCH_EVENT = "/pages/events/searchEvent.xhtml?faces-redirect=true";
-	public static String SEARCH_NAVIGATION = "/pages/search/searchData.xhtml?faces-redirect=true";
+	public static String SEARCH_NAVIGATION = "/pages/search/searchData.xhtml";
+	
+	public static String ADD_INDIVIDUAL = "/pages/search/addUserProfile.xhtml";
 	
 	public static String CONTACTUS_NAVIGATION = "/pages/contactUs.xhtml?faces-redirect=true";
 

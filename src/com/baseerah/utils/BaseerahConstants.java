@@ -79,6 +79,10 @@ public final class BaseerahConstants {
 			
 			public static final String SEARCH_INDL = "Search Individual";
 			
+			public static final String ADD_INDL = "Add Individual";
+			
+			public static final String UPDATE_INDL = "Update Individual";
+			
 			public static final String SEARCH_NOTIFICATION = "Search Notification";
 			
 			public static final String SEARCH_EVENT = "Search Event/Course";

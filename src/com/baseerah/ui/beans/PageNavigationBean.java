@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.baseerah.ui.beans.admin.CriteriaBean;
+import com.baseerah.ui.beans.search.SearchBean;
 import com.baseerah.utils.BaseerahConstants;
 import com.baseerah.utils.NavigationConstants;
 import com.iac.web.util.FacesUtils;
@@ -62,6 +63,28 @@ public class PageNavigationBean implements Serializable
 		
 		pageName = NavigationConstants.SEARCH_NAVIGATION;
 		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.SEARCH_INDL);
+		return pageName;
+	}
+	
+	public String navAddIndividualPage() 
+	{
+		System.out.println("PageNavigationBean search/addUserProfile.xhtml");
+//		FacesUtils.resetManagedBean("searchBean");
+		
+		pageName = NavigationConstants.ADD_INDIVIDUAL;
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.ADD_INDL);
+//		return ((SearchBean)FacesUtils.getManagedBean("searchBean")).createUserProfile();
+		return pageName;
+	}
+	
+	public String navUpdateIndividualPage() 
+	{
+		System.out.println("PageNavigationBean search/addUserProfile.xhtml");
+//		FacesUtils.resetManagedBean("searchBean");
+		
+		pageName = NavigationConstants.ADD_INDIVIDUAL;
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.UPDATE_INDL);
+//		return ((SearchBean)FacesUtils.getManagedBean("searchBean")).createUserProfile();
 		return pageName;
 	}
 	

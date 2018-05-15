@@ -1,0 +1,275 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePageTiles.xhtml">
+		
+<ui:define name="content">
+
+<h:form id="userForm">
+  
+
+	<p:panel id="panel1"  header="#{crit.pageTitle}" style="text-align: center;">
+	
+		<p:panelGrid style="margin-top:14px;text-align:left; width: 90%; margin: 0 auto" 
+			 columns="4">
+				
+			<p:outputLabel style="font-size:14px !important" value="Mobile No "></p:outputLabel>
+			<p:inputText style="width:200px;" value="#{searchBean.selectedUserProfile.phone}" >
+				 <p:ajax event="blur" listener="#{searchBean.validateMobileNo}"/>
+			</p:inputText>
+			
+			<p:outputLabel style="font-size:14px !important" value="Name "></p:outputLabel>
+			<p:inputText style="width:200px;" value="#{searchBean.selectedUserProfile.name}" />
+			
+			<p:outputLabel style="font-size:14px !important" value="Father / Husband Name "></p:outputLabel>
+			<p:inputText style="width:200px;" value="#{searchBean.selectedUserProfile.guardian}" />
+			
+			
+			
+			<p:outputLabel style="font-size:14px !important" value="Email Address "></p:outputLabel>
+			<p:inputText style="width:200px;" value="#{searchBean.selectedUserProfile.email}" type="email"/>
+			
+			<p:outputLabel style="font-size:14px !important" value="Nationality "></p:outputLabel>
+			<p:selectOneMenu id="nationality" value="#{searchBean.selectedUserProfile.nationality}" effect="fold" 
+				style="width:150px;">
+					 <f:selectItem itemLabel="Pakistani" itemValue="Pakistani" />
+       		</p:selectOneMenu>
+       		
+       		<p:outputLabel for="gender" style="font-size:14px !important" value="Gender "></p:outputLabel>
+			<p:selectOneMenu id="gender" value="#{searchBean.selectedUserProfile.gender}" effect="fold" 
+				style="width:150px;">
+					 <f:selectItem itemLabel="Male" itemValue="M" />
+					 <f:selectItem itemLabel="Female" itemValue="F" />
+       		</p:selectOneMenu>
+			
+			<p:outputLabel style="font-size:14px !important" value="Date of Birth "></p:outputLabel>
+			<p:calendar id="dob" value="#{searchBean.selectedUserProfile.dateOfBirth}" pattern="dd MMM yyyy"
+				navigator="true" widgetVar="myCalendar"/>
+				
+			<p:outputLabel style="font-size:14px !important" value="Occupation "></p:outputLabel>
+			<p:inputText style="width:200px;" value="#{searchBean.selectedUserProfile.occupation}" />
+			
+			
+    		
+			
+		</p:panelGrid>
+		<p:panelGrid style="margin-top:14px;text-align:left; width: 90%; margin: 0 auto" 
+			columns="2">
+		<p:outputLabel style="font-size:14px !important" value="Present Address"></p:outputLabel>
+			<p:inputTextarea style="width:400px;" rows="5"  cols="100" 
+				value="#{searchBean.selectedUserProfile.address}" autoResize="false" />
+		</p:panelGrid>
+			
+		<p:panelGrid style="margin-top:14px;text-align:left; width: 90%; margin: 0 auto" 
+			 columns="6">
+			
+	        <p:selectBooleanCheckbox id="nazira" value="#{searchBean.nazira}" />
+	        <p:outputLabel style="font-size:14px !important" for="nazira" value="Able to read Quran (Nazera) " />
+	        <p:selectBooleanCheckbox id="arabic" value="#{searchBean.arabic}" />
+	        <p:outputLabel style="font-size:14px !important" for="arabic" value="Have learned arabic language " />
+	          <p:selectBooleanCheckbox id="tajweed" value="#{searchBean.tajweed}" />
+	        <p:outputLabel style="font-size:14px !important" for="tajweed" value="Have good acquaintance with Tajweed " />
+	      
+		</p:panelGrid>
+			
+			
+			
+		<p:panelGrid style="align: center" columns="3"> 
+       		 <h4>How did you get to know about Baseerah?</h4>
+       		 <p:commandButton onclick="PF('sourceTypeDlg').show();"  class="btn btn-normal"  immediate="true"
+			     		value="Add" icon="fa fa-fw fa-plus fa-lg" title="Add Type" style="height:2em;"/>
+		</p:panelGrid>
+		<p:selectOneRadio style="border:1px !important;" id="source" value="#{searchBean.selectedUserProfile.sourceType.id}" layout="responsive" columns="4">
+		     	<f:selectItems value="#{searchBean.sourceTypeItems}" var="c" />
+		</p:selectOneRadio>
+			    	
+		<p:panelGrid style="align: center" columns="2"> 	     
+			<h4>Education / Events / Courses</h4>
+			<p:commandButton oncomplete="PF('eventsDlg').show();" action="#{searchBean.searchEvents}" class="btn btn-normal" update="eventForm:eventTable"
+			     		value="Add" icon="fa fa-fw fa-plus fa-lg" title="Add Education / events / course" style="height:2em;"/>
+		</p:panelGrid>
+		<p:dataTable value="#{searchBean.selectedUserProfile.userEvents}" var="event" id="userEvents" >
+		 
+			<p:column headerText="Type" sortBy="#{event.event.eventType.eventType}" filterBy="#{event.event.eventType.eventType}" 
+				filterMatchMode="contains" >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{event.event.eventType.eventType}" />
+			
+        	</p:column>
+        	
+        	<p:column headerText="Title" sortBy="#{event.event.title}" filterBy="#{event.event.title}" 
+				filterMatchMode="contains" >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{event.event.title}" />
+			
+        	</p:column>
+	      	        
+			<p:column headerText="From Date"   sortBy="#{event.event.fromDate}" filterBy="#{event.event.fromDate}" 
+				filterMatchMode="contains" width="15%">
+				<h:outputText style="font-size:14px;" value="#{event.event.fromDate}" >
+					<f:convertDateTime pattern="dd MMM yyyy HH:mm"></f:convertDateTime>
+				</h:outputText>
+            
+	    	</p:column>
+	    
+	    	<p:column headerText="To Date"   sortBy="#{event.event.toDate}" filterBy="#{event.event.toDate}" 
+			 width="15%">
+				<h:outputText style="font-size:14px;" value="#{event.event.toDate}" >
+					<f:convertDateTime pattern="dd MMM yyyy HH:mm"></f:convertDateTime>
+				</h:outputText>
+            
+	    	</p:column>
+	    
+	  		<p:column headerText="Institute" sortBy="#{event.event.institute.name}" filterBy="#{event.event.institute.name}" >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{event.event.institute.name}" />
+			
+        	</p:column>
+        
+          	<p:column headerText="Campus" sortBy="#{event.event.campus.name}" filterBy="#{event.event.campus.name}" 
+				filterMatchMode="contains" >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{event.event.campus.name}" />
+			
+        	</p:column>
+        	<p:column width="6%" >
+				<center>
+	        	<p:commandButton action="#{searchBean.deleteEvent}" class="btn btn-primary" update="userForm:userEvents"
+			    	icon="fa fa-fw fa-trash-o fa-lg" title="Delete" style="height:2em;"  >
+			    
+			    	<f:setPropertyActionListener value="#{event.event}" 
+			            target="#{searchBean.selectedEvent}">
+	  					</f:setPropertyActionListener>
+			    </p:commandButton>
+	    		</center>
+	    	</p:column>
+		</p:dataTable>
+				
+ 		
+ 		
+ 	</p:panel>
+ 	<center>
+  	<p:commandButton value="Save" action="#{searchBean.saveUserProfile}" icon="fa fa-fw fa-save" >
+  	</p:commandButton>
+  	<p:commandButton value="Save and Continue" action="#{searchBean.saveUserProfileAndContinue}" icon="fa fa-fw fa-save" 
+  		rendered="#{!searchBean.updateUser}">
+  	</p:commandButton>
+  	<p:commandButton value="Cancel" action="#{searchBean.cancelUpdateUser}" icon="fa fa-fw fa-remove" 
+  		rendered="#{searchBean.updateUser}">
+  	</p:commandButton>
+  	
+  	</center>
+  	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background-color: #3a578c !important;">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-fw fa-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-fw fa-close" />
+    </p:confirmDialog>
+  	
+  	 
+   
+   	
+</h:form>
+<p:dialog header="Source Type" widgetVar="sourceTypeDlg" resizable="false" 
+  	 style="background-color: #3a578c !important;margin:10px;">
+  	 	<h:form>
+        <p:spacer width="10px"></p:spacer> 
+        <h:panelGrid columns="2" cellpadding="5">
+            
+            <h:outputLabel for="name" value="Name:  " />
+            <p:inputText id="name" value="#{searchBean.sourceType.name}" style="width:300px" required="true" label="name" />
+ 
+           </h:panelGrid>
+           <p:spacer width="10px"></p:spacer>
+            <h:panelGrid columns="1" cellpadding="5" style="align:center;">
+            <center>
+                <p:commandButton value="Add" update="userForm:source" action="#{searchBean.addSourceType}"
+                                 oncomplete="PF('sourceTypeDlg').hide();" />
+             </center>
+            </h:panelGrid>
+        </h:form>
+</p:dialog>
+
+<p:dialog header="Events / Courses" widgetVar="eventsDlg" minHeight="400" height="400"
+  	 style="background-color: #3a578c !important;margin:10px;" >
+  	 	<h:form id="eventForm">
+        <p:spacer width="10px"></p:spacer> 
+        <p:dataTable value="#{searchBean.eventList}" var="noti" 
+  					editable="true"
+					paginatorPosition="top" rows="20"
+					rowsPerPageLabel=" Rows" 
+					rowsPerPageTemplate="10,20,50"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					id="eventTable" >
+		 
+		
+		
+		<p:column headerText="ID" sortBy="#{noti.id}" filterBy="#{noti.id}" 
+ 					filterMatchMode="contains" width="5%">
+	            <h:outputText style="font-size:14px;" value="#{noti.id}" />
+        </p:column>
+        <p:column headerText="Type" sortBy="#{noti.eventType.eventType}" filterBy="#{noti.eventType.eventType}" 
+			filterMatchMode="contains" >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{noti.eventType.eventType}" />
+			
+        </p:column>
+		<p:column headerText="Title" sortBy="#{noti.title}" filterBy="#{noti.title}" 
+			filterMatchMode="contains" >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{noti.title}" />
+			
+        </p:column>
+	        
+				        
+		<p:column headerText="From Date"   sortBy="#{noti.fromDate}" filterBy="#{noti.fromDate}" 
+			 filterMatchMode="contains" width="15%">
+				<h:outputText style="font-size:14px;" value="#{noti.fromDate}" >
+					<f:convertDateTime pattern="dd MMM yyyy HH:mm"></f:convertDateTime>
+				</h:outputText>
+            
+	    </p:column>
+	    
+	    <p:column headerText="To Date"   sortBy="#{noti.toDate}" filterBy="#{noti.toDate}" 
+			 width="15%">
+				<h:outputText style="font-size:14px;" value="#{noti.toDate}" >
+					<f:convertDateTime pattern="dd MMM yyyy HH:mm"></f:convertDateTime>
+				</h:outputText>
+            
+	    </p:column>
+	    
+	  <p:column headerText="Institute" sortBy="#{noti.institute.name}" filterBy="#{noti.institute.name}" 
+			 >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{noti.institute.name}" />
+			
+        </p:column>
+        
+          <p:column headerText="Campus" sortBy="#{noti.campus.name}" filterBy="#{noti.campus.name}" 
+			filterMatchMode="contains" >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{noti.campus.name}" />
+			
+        </p:column>
+        
+	    <p:column width="6%" >
+			<center>
+			
+		    <p:commandButton action="#{searchBean.addEvent}" class="btn btn-primary" update="userForm:userEvents"
+		    	icon="fa fa-fw fa-plus fa-lg" title="Add" style="height:2em;" oncomplete="PF('eventsDlg').hide();" >
+		    
+		    	<f:setPropertyActionListener value="#{noti}" 
+		            target="#{searchBean.selectedEvent}">
+  					</f:setPropertyActionListener>
+		    </p:commandButton>
+		    
+			
+		    
+           	</center>
+        </p:column>
+				    
+		</p:dataTable>
+		
+        </h:form>
+</p:dialog>
+
+
+
+	
+</ui:define>
+</ui:composition>
+

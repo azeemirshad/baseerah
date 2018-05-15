@@ -17,6 +17,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.model.SelectItem;
+
 import org.apache.commons.lang3.text.WordUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
@@ -30,8 +32,11 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.baseerah.dal.dao.BaseerahNotification;
+import com.baseerah.dal.dao.Event;
+import com.baseerah.dal.dao.Institute;
 import com.baseerah.dal.dao.KeyValuePair;
 import com.baseerah.dal.dao.NotificationWFObject;
+import com.baseerah.dal.dao.SourceType;
 import com.baseerah.dal.dao.UserProfile;
 import com.baseerah.ui.beans.UserBean;
 import com.baseerah.ui.beans.admin.CriteriaBean;
@@ -71,6 +76,8 @@ public class SearchBll
 		{
 			session = HibernateUtilsAnnot.currentSession();			
 			Criteria cr = session.createCriteria(UserProfile.class);
+//			cr.createAlias("userEvents", "uEvents");
+			
 			if(toSearch!=null)
 			{
 				if(toSearch.getId()!=null && toSearch.getId()>0)
@@ -90,7 +97,9 @@ public class SearchBll
 			}
 //			cr.addOrder(Order.asc("eventTime"));
 			list = cr.list();
-			
+			for (UserProfile userProfile : list) {
+				Hibernate.initialize(userProfile.getUserEvents());
+			}
 			
 
 			
@@ -236,6 +245,141 @@ public class SearchBll
 //            e.printStackTrace();
 //        }
 //    }
+	
+	
+	public boolean addUserProfile(UserProfile notification) throws Exception
+	{
+		Session session = null;
+		Transaction tx = null;
+		System.out.println("In addUserProfile Method bll");
+		if(notification.getSourceType().getId() == null){
+			System.out.println("getSourceType().getId() is null");
+			notification.setSourceType(null);
+		}
+		try
+		{
+			session = HibernateUtilsAnnot.currentSession();
+			tx = session.beginTransaction();
+			
+			session.saveOrUpdate(notification);
+			
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			tx.rollback();
+			throw new Exception(e);
+//			return false;
+		}
+		finally
+		{
+			HibernateUtilsAnnot.closeSession();
+		}
+		
+		return true;
+	}
+	
+	public boolean validateMobileNo(String mobileNo) throws Exception
+	{
+		Session session = null;
+		Transaction tx = null;
+		System.out.println("In validateMobileNo Method bll");
+		List<UserProfile> users = new ArrayList<>();
+		try
+		{
+			session = HibernateUtilsAnnot.currentSession();
+			tx = session.beginTransaction();
+			
+			Criteria crit = session.createCriteria(UserProfile.class);
+			crit.add(Restrictions.eq("phone", mobileNo));
+			users = crit.list();
+			
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			tx.rollback();
+			throw new Exception(e);
+//			return false;
+		}
+		finally
+		{
+			HibernateUtilsAnnot.closeSession();
+		}
+		 if(users.size()>0){
+			 return false;
+		 }
+		
+		return true;
+	}
+	
+	public boolean addSourceType(SourceType notification) throws Exception
+	{
+		Session session = null;
+		Transaction tx = null;
+		System.out.println("In addInstitute Method bll");
+		try
+		{
+			session = HibernateUtilsAnnot.currentSession();
+			tx = session.beginTransaction();
+			session.save(notification);
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			tx.rollback();
+			throw new Exception(e);
+//			return false;
+		}
+		finally
+		{
+			HibernateUtilsAnnot.closeSession();
+		}
+		
+		return true;
+	}
+	
+	public List<SelectItem> searchSourceTypeItems() throws Exception
+	{
+		List<SourceType> sourceTypes = searchSourceTypes();
+		List<SelectItem> sourceTypeItems = new ArrayList<>();
+		for (SourceType institute : sourceTypes) {
+			sourceTypeItems.add(new SelectItem(institute.getId(), institute.getName()));
+		}
+		return sourceTypeItems;
+	}
+	
+	
+	public List<SourceType> searchSourceTypes() throws Exception
+	{
+		Session session = null;
+		List<SourceType> list = new ArrayList<SourceType>();
+		System.out.println("In search Institutes Method bll");
+		try
+		{
+			session = HibernateUtilsAnnot.currentSession();			
+			Criteria cr = session.createCriteria(SourceType.class);
+			cr.addOrder(Order.asc("name"));
+//			cr.add(Restrictions.eq("isDelete", BaseerahConstants.DeleteStatus.No));
+			list = cr.list();
+			
+		}
+		catch(HibernateException e)
+		{
+			e.printStackTrace();
+			throw new Exception(e);
+//			return null;
+		}
+		finally
+		{
+			HibernateUtilsAnnot.closeSession();
+		}
+		
+		return list;
+	}
 	
 	public boolean sendNotification(NotificationWFObject notificationWf) throws Exception{
 		try{

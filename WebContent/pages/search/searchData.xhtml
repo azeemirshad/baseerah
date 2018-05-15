@@ -59,14 +59,22 @@
 	            <h:outputText style="font-size:16px;" value="#{profile.id}" />
         </p:column>
 		<p:column headerText="Name" sortBy="#{profile.name}" filterBy="#{profile.name}" 
-			filterMatchMode="contains" width="60%">
+			filterMatchMode="contains" >
 			<p:cellEditor>
 				<f:facet name="output"><h:outputText style="font-size:16px;" value="#{profile.name}" /></f:facet>
                 <f:facet name="input"><p:inputText value="#{profile.name}" style="width:100%" label="Name"/></f:facet>
 	            
 	        </p:cellEditor>
         </p:column>
-	        
+	    <p:column headerText="Father / Husband Name" sortBy="#{profile.guardian}" filterBy="#{profile.guardian}" 
+			filterMatchMode="contains" >
+			<p:cellEditor>
+				<f:facet name="output"><h:outputText style="font-size:16px;" value="#{profile.guardian}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{profile.guardian}" style="width:100%" label="Father / Husband Name"/></f:facet>
+	            
+	        </p:cellEditor>
+        </p:column>
+	            
 				        
 		<p:column headerText="Mobile No"   sortBy="#{profile.phone}" filterBy="#{profile.phone}" 
 			filterMatchMode="contains">
@@ -79,6 +87,15 @@
            <p:rowEditor editTitle="Click to edit row." cancelTitle="Cancel" saveTitle="Save">
            	
            </p:rowEditor>
+       </p:column>
+        <p:column style="width:5%" headerText="Details">
+          <p:commandButton action="#{searchBean.updateUserProfile}" class="btn btn-primary"
+		     icon="fa fa-fw fa-edit fa-lg" title="View Individual Details" style="height:2em;">
+		    
+		    	<f:setPropertyActionListener value="#{profile}" 
+		            target="#{searchBean.selectedUserProfile}">
+  					</f:setPropertyActionListener>
+		    </p:commandButton>
        </p:column>
 				    
 	</p:dataTable>

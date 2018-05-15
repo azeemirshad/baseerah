@@ -19,6 +19,7 @@ html, body {
 	border: 0px ;
 	background: none ;
 	color: #dfe6ee!important;
+	
 }
 
 .banner_holder{
@@ -275,6 +276,11 @@ background-image: none ;
 	border-radius: 20px !important;
 }
 .ui-datepicker{
+	background-color: white !important;
+	border:2px;
+	color: black !important;
+}
+.ui-datepicker-title{
 	background-color: white !important;
 	border:2px;
 	color: black !important;

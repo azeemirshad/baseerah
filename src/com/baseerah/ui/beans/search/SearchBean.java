@@ -15,13 +15,22 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.util.Base64;
 
+import com.baseerah.bll.EventBll;
 import com.baseerah.bll.SearchBll;
+import com.baseerah.dal.dao.Campus;
+import com.baseerah.dal.dao.Event;
+import com.baseerah.dal.dao.EventType;
+import com.baseerah.dal.dao.Institute;
+import com.baseerah.dal.dao.SourceType;
+import com.baseerah.dal.dao.UserEvent;
 import com.baseerah.dal.dao.UserProfile;
+import com.baseerah.ui.beans.PageNavigationBean;
 import com.baseerah.ui.beans.UserBean;
 import com.baseerah.ui.beans.admin.CriteriaBean;
 import com.baseerah.utils.Environment;
@@ -43,15 +52,94 @@ public class SearchBean implements Serializable
 	
 	private UserProfile selectedUserProfile;
 	
+	private SourceType sourceType;
+	
+	private List<SelectItem> sourceTypeItems;
+	
+	private List<Event> eventList;
+	
+	private Event selectedEvent;
+	
+	private boolean nazira;
+	
+	private boolean tajweed;
+	
+	private boolean arabic;
+	
+	private boolean updateUser;
+	
+	
 	private List<UserProfile> userProfileList = new ArrayList<UserProfile>();
 	
 	public SearchBean() 
 	{
 		// TODO Auto-generated constructor stub
 		this.toSearchUserProfile = new UserProfile();
+		selectedUserProfile = new UserProfile();
+		sourceType = new SourceType();
+		sourceTypeItems = new ArrayList<>();
+		selectedEvent = new Event();
+		
+	}
+	
+	public String searchEvents()
+	{
+		EventBll bll = new EventBll();
+		System.out.println("In searchEvent method");
+		
+		try {
+			this.eventList = bll.searchEventList();
+			System.out.println("Event list size :: " + this.eventList.size());
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+			e.printStackTrace();
+		}
+			
+		return "";
+		
+	}
+	
+	public void addEvent()
+	{
+		
+		System.out.println("In addEvent method");
+		if(this.selectedEvent!=null && selectedEvent.getId()!=null)
+		{
+			System.out.println("Adding event to user profile");
+			UserEvent userEvent = new UserEvent();
+			userEvent.setEvent(selectedEvent);
+			userEvent.setUserProfile(selectedUserProfile);
+			userEvent.setIsDelete(BaseerahConstants.DeleteStatus.No);
+			if(selectedUserProfile.getUserEvents() == null){
+				List<UserEvent> userEvents = new ArrayList<>();
+				selectedUserProfile.setUserEvents(userEvents);
+			}
+			selectedUserProfile.getUserEvents().add(userEvent);
+			selectedEvent = new Event();
+		}
+		
+	}
+	
+	public void deleteEvent()
+	{
+		
+		System.out.println("In deleteEvent method");
+		if(this.selectedEvent!=null && selectedEvent.getId()!=null)
+		{
+			System.out.println("Deleting event from user profile events " +  selectedUserProfile.getUserEvents().size());
+			for (UserEvent userEvent : selectedUserProfile.getUserEvents()) {
+				if(userEvent.getEvent().getId().intValue() == selectedEvent.getId().intValue()){
+					selectedUserProfile.getUserEvents().remove(userEvent);
+				}
+			}
+			selectedEvent = new Event();
+			System.out.println("After deletion user profile events " +  selectedUserProfile.getUserEvents().size());
+		}
 		
 	}
 
+	
+	
 	public String searchUserProfile()
 	{
 		SearchBll bll = new SearchBll();
@@ -60,18 +148,206 @@ public class SearchBean implements Serializable
 //		if(dateTo.after(dateFrom))
 		{
 			this.userProfileList = bll.searchUserProfileList(toSearchUserProfile);
-			System.out.println("Patients list size :: " + this.userProfileList.size());
+			System.out.println("Individuals list size :: " + this.userProfileList.size());
 		
 		}
 //		else
 //		{
 //			MessageUtils.error(BaseerahConstants.Messages.INVALID_DATE);
 //		}
+		 CriteriaBean cb = (CriteriaBean)FacesUtils.getManagedBean("crit");
+		cb.setPageTitle(BaseerahConstants.Constants.PageTitles.SEARCH_INDL);
+		
+		return NavigationConstants.SEARCH_NAVIGATION;
 		
 		
-		
-		return "";
+//		return "";
 	}
+	
+	 public void addSourceType() {
+		 System.out.println("In addSourceType method");
+		 SearchBll bll = new SearchBll();
+		 try {
+			if(sourceType.getName() !=null && !sourceType.getName().equals("") )
+			{
+				bll.addSourceType(sourceType);
+				this.sourceTypeItems = new SearchBll().searchSourceTypeItems();
+				sourceType = new SourceType();
+				MessageUtils.info("Source added successfully");
+			}
+			else
+				MessageUtils.info("You did not specify source name");
+		} catch (Exception e) {
+	 		FacesUtils.addErrorMessage(e.getMessage());
+			e.printStackTrace();
+		}
+	 }
+	 
+	 
+	 public String saveUserProfile()
+		{
+			
+			SearchBll bll =new SearchBll();
+			
+			
+			if(selectedUserProfile ==null )
+			{
+				MessageUtils.error("Invalid user profile");
+				return "";
+			}
+
+			try {
+				if(tajweed) selectedUserProfile.setIsTajweed(1);
+				if(arabic) selectedUserProfile.setIsArabic(1);
+				if(nazira) selectedUserProfile.setIsNazira(1);
+				if(!updateUser && !bll.validateMobileNo(selectedUserProfile.getPhone())){
+//					if( )
+//					{
+						MessageUtils.error("Mobile No already exists. Visit Search Individual page for details");
+						return "";
+//					}
+				}else{
+					if(bll.addUserProfile(selectedUserProfile))
+					{
+	//				FacesUtils.addInfoMessage("Login credentials", BaseerahConstants.Messages.SAVE_SUCCESS);
+						MessageUtils.info(BaseerahConstants.Messages.SAVE_SUCCESS);
+						this.selectedUserProfile = new UserProfile();
+						
+					}
+					else
+					{
+	//				FacesUtils.addErrorMessage("Login credentials", BaseerahConstants.Messages.SAVE_FAILURE);
+						MessageUtils.error(BaseerahConstants.Messages.SAVE_FAILURE);
+					}
+//					return NavigationConstants.SEARCH_NAVIGATION;
+					return this.searchUserProfile();
+				}
+			} catch (Exception e) {
+				System.out.println("Exception in Bean  .... sendNotification &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+				e.printStackTrace();
+				MessageUtils.error(e.getMessage());
+			}
+			
+			return "";
+		}
+	 
+	 
+	 public String saveUserProfileAndContinue()
+		{
+			
+			SearchBll bll =new SearchBll();
+			
+			
+			if(selectedUserProfile ==null )
+			{
+				MessageUtils.error("Invalid user profile");
+				return "";
+			}
+			
+			
+			try {
+				if(tajweed) selectedUserProfile.setIsTajweed(1);
+				if(arabic) selectedUserProfile.setIsArabic(1);
+				if(nazira) selectedUserProfile.setIsNazira(1);
+				if(!bll.validateMobileNo(selectedUserProfile.getPhone()) )
+				{
+					MessageUtils.error("Mobile No already exists. Visit Search Individual page for details");
+					return "";
+				}else{
+					if(bll.addUserProfile(selectedUserProfile))
+					{
+	//				FacesUtils.addInfoMessage("Login credentials", BaseerahConstants.Messages.SAVE_SUCCESS);
+						MessageUtils.info(BaseerahConstants.Messages.SAVE_SUCCESS);
+						this.selectedUserProfile = new UserProfile();
+						
+					}
+					else
+					{
+	//				FacesUtils.addErrorMessage("Login credentials", BaseerahConstants.Messages.SAVE_FAILURE);
+						MessageUtils.error(BaseerahConstants.Messages.SAVE_FAILURE);
+					}
+					return "";
+			}
+			} catch (Exception e) {
+				System.out.println("Exception in Bean  .... sendNotification &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+				e.printStackTrace();
+				MessageUtils.error(e.getMessage());
+			}
+			
+			return "";
+		}
+	
+	public String createUserProfile(){
+		
+		try {
+			updateUser = false;
+			this.selectedUserProfile = new UserProfile();
+			arabic = false;
+			tajweed = false;
+			nazira = false;
+			
+			sourceType = new SourceType();
+			
+			this.sourceTypeItems = new SearchBll().searchSourceTypeItems();
+			
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+			e.printStackTrace();
+			return "";
+			
+		}
+		PageNavigationBean cb = (PageNavigationBean)FacesUtils.getManagedBean("navBean");
+		return cb.navAddIndividualPage();
+		
+	}
+	
+	public String updateUserProfile(){
+		
+		try {
+			updateUser = true;
+			arabic = (selectedUserProfile.getIsArabic()!= null &&  selectedUserProfile.getIsArabic() == 1);
+			tajweed = (selectedUserProfile.getIsTajweed()!=null && selectedUserProfile.getIsTajweed() == 1);
+			nazira = (selectedUserProfile.getIsNazira()!=null && selectedUserProfile.getIsNazira() == 1);
+			if(selectedUserProfile.getSourceType() == null)
+				selectedUserProfile.setSourceType(new SourceType());
+			
+			this.sourceTypeItems = new SearchBll().searchSourceTypeItems();
+			
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+			e.printStackTrace();
+			return "";
+			
+		}
+		PageNavigationBean cb = (PageNavigationBean)FacesUtils.getManagedBean("navBean");
+		return cb.navUpdateIndividualPage();
+		
+	}
+	
+	public String cancelUpdateUser(){
+		
+		updateUser = false;
+		
+		return searchUserProfile();
+		
+	}
+	
+	public void validateMobileNo(){
+		try {
+			if (new SearchBll().validateMobileNo(this.selectedUserProfile.getPhone())){
+				System.out.println("validateMobileNo .... true &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+			}else
+			{
+				System.out.println("validateMobileNo .... false &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+				MessageUtils.error("Mobile No already exists. Visit Search Individual page for details");
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+	}
+	
 	public void onRowEdit(RowEditEvent event) {
 		UserProfile user = ((UserProfile) event.getObject());
 		try {
@@ -144,7 +420,120 @@ public class SearchBean implements Serializable
 	public void setUserProfileList(List<UserProfile> userProfileList) {
 		this.userProfileList = userProfileList;
 	}
+
+	/**
+	 * @return the nazira
+	 */
+	public boolean isNazira() {
+		return nazira;
+	}
+
+	/**
+	 * @param nazira the nazira to set
+	 */
+	public void setNazira(boolean nazira) {
+		this.nazira = nazira;
+	}
+
+	/**
+	 * @return the tajweed
+	 */
+	public boolean isTajweed() {
+		return tajweed;
+	}
+
+	/**
+	 * @param tajweed the tajweed to set
+	 */
+	public void setTajweed(boolean tajweed) {
+		this.tajweed = tajweed;
+	}
+
+	/**
+	 * @return the arabic
+	 */
+	public boolean isArabic() {
+		return arabic;
+	}
+
+	/**
+	 * @param arabic the arabic to set
+	 */
+	public void setArabic(boolean arabic) {
+		this.arabic = arabic;
+	}
+
+	/**
+	 * @return the sourceType
+	 */
+	public SourceType getSourceType() {
+		return sourceType;
+	}
+
+	/**
+	 * @param sourceType the sourceType to set
+	 */
+	public void setSourceType(SourceType sourceType) {
+		this.sourceType = sourceType;
+	}
+
+	/**
+	 * @return the sourceTypeItems
+	 */
+	public List<SelectItem> getSourceTypeItems() {
+		return sourceTypeItems;
+	}
+
+	/**
+	 * @param sourceTypeItems the sourceTypeItems to set
+	 */
+	public void setSourceTypeItems(List<SelectItem> sourceTypeItems) {
+		this.sourceTypeItems = sourceTypeItems;
+	}
+
+	/**
+	 * @return the eventList
+	 */
+	public List<Event> getEventList() {
+		return eventList;
+	}
+
+	/**
+	 * @param eventList the eventList to set
+	 */
+	public void setEventList(List<Event> eventList) {
+		this.eventList = eventList;
+	}
+
+	/**
+	 * @return the selectedEvent
+	 */
+	public Event getSelectedEvent() {
+		return selectedEvent;
+	}
+
+	/**
+	 * @param selectedEvent the selectedEvent to set
+	 */
+	public void setSelectedEvent(Event selectedEvent) {
+		this.selectedEvent = selectedEvent;
+	}
+
+	/**
+	 * @return the updateUser
+	 */
+	public boolean isUpdateUser() {
+		return updateUser;
+	}
+
+	/**
+	 * @param updateUser the updateUser to set
+	 */
+	public void setUpdateUser(boolean updateUser) {
+		this.updateUser = updateUser;
+	}
+
 	
-		
+	
 
 }
