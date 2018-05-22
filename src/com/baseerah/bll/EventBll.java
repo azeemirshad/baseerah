@@ -78,7 +78,7 @@ public class EventBll
 			list = cr.list();
 			
 		}
-		catch(HibernateException e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			throw new Exception(e);

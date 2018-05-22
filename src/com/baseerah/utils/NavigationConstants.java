@@ -27,7 +27,7 @@ public class NavigationConstants {
 	public static String ADVANCE_SEARCH_DETAILS_NAVIGATION = "/pages/search/advanceSearchDetails.xhtml?faces-redirect=true";
 	
 	public static String SEARCH_NOTIFICATION = "/pages/notification/searchNotification.xhtml?faces-redirect=true";	
-	public static String SEARCH_EVENT = "/pages/events/searchEvent.xhtml?faces-redirect=true";
+	public static String SEARCH_EVENT = "/pages/events/searchEvent.xhtml";
 	public static String SEARCH_NAVIGATION = "/pages/search/searchData.xhtml";
 	
 	public static String ADD_INDIVIDUAL = "/pages/search/addUserProfile.xhtml";

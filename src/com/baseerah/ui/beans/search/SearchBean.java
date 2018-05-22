@@ -146,11 +146,18 @@ public class SearchBean implements Serializable
 		System.out.println("In searchUserProfile method");
 		
 //		if(dateTo.after(dateFrom))
-		{
-			this.userProfileList = bll.searchUserProfileList(toSearchUserProfile);
-			System.out.println("Individuals list size :: " + this.userProfileList.size());
+//		{
+			try {
+				this.userProfileList = bll.searchUserProfileList(toSearchUserProfile);
+				System.out.println("Individuals list size :: " + this.userProfileList.size());
+			
+			} catch (Exception e) {
+				MessageUtils.error(e.getMessage());
+				e.printStackTrace();
+			}
+			
 		
-		}
+//		}
 //		else
 //		{
 //			MessageUtils.error(BaseerahConstants.Messages.INVALID_DATE);

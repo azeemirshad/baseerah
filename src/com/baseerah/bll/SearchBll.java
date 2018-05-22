@@ -67,7 +67,7 @@ public class SearchBll
 		
 	}
 	
-	public List<UserProfile> searchUserProfileList(UserProfile toSearch)
+	public List<UserProfile> searchUserProfileList(UserProfile toSearch) throws Exception
 	{
 		Session session = null;
 		List<UserProfile> list = new ArrayList<UserProfile>();
@@ -104,10 +104,10 @@ public class SearchBll
 
 			
 		}
-		catch(HibernateException e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
-			return null;
+			throw new Exception(e.getMessage());
 		}
 		finally
 		{

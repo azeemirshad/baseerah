@@ -316,8 +316,12 @@ public class EventsBean implements Serializable
 			MessageUtils.error("Invalid Event / Course");
 			return "";
 		}
-		
-		
+		if(selectedEvent.getInstitute().getId().intValue() == -1){
+			selectedEvent.setInstitute(null);
+		}
+		if(selectedEvent.getCampus().getId().intValue() == -1){
+			selectedEvent.setCampus(null);
+		}
 		try {
 			if(bll.addEvent(selectedEvent))
 			{
