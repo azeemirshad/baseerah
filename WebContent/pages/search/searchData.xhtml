@@ -13,15 +13,29 @@
 	<p:defaultCommand target="btnSearch" />	
 	<p:focus context="panel2" for="name"></p:focus> 		 	
   	<p:panel id="panel2"   style="text-align: center;">
-  				<p:panelGrid style="width: 80%; margin:0 auto;" styleClass="companyHeaderGrid" 
+  				<p:panelGrid style="width: 90%; margin:0 auto;" styleClass="companyHeaderGrid" 
 					columns="4">
 					
 					<p:outputLabel value="Name"></p:outputLabel>
- 					<p:inputText value="#{searchBean.toSearchUserProfile.name}" id="name"></p:inputText> 
+ 					<p:inputText value="#{searchBean.toSearchUserProfile.name}" id="name" style="width: 300px;"></p:inputText> 
 
 					<p:outputLabel value="Mobile No"></p:outputLabel>
 					
  					<p:inputText value="#{searchBean.toSearchUserProfile.phone}"></p:inputText> 
+ 					<p:outputLabel value="Course Title"></p:outputLabel>
+					
+ 					<p:inputText value="#{searchBean.searchEventTitle}" style="width: 300px;"></p:inputText> 
+ 					
+ 					<p:outputLabel value="Course Type"></p:outputLabel>
+					
+ 					<p:selectOneMenu id="eventtype" value="#{searchBean.searchEventTypeId}" effect="fold" 
+ 						style="width: 150px;">
+					 
+	            		<f:selectItem itemLabel="Select One" itemValue="-1" />
+	            		<f:selectItems value="#{searchBean.eventTypeItems}" />
+	            	
+	       			</p:selectOneMenu>
+ 					
  					
 				</p:panelGrid>
 				<p:commandButton value="Search" icon="fa fa-fw fa-search" update="tbl2" id="btnSearch" 
@@ -83,12 +97,12 @@
                 <f:facet name="input"><p:inputText value="#{profile.phone}" style="width:100%" label="Name"/></f:facet>
 	        </p:cellEditor>
 	    </p:column>
-	    <p:column style="width:5%" headerText="Edit">
+	    <p:column style="width:5%" headerText="Edit" exportable="false">
            <p:rowEditor editTitle="Click to edit row." cancelTitle="Cancel" saveTitle="Save">
            	
            </p:rowEditor>
        </p:column>
-        <p:column style="width:5%" headerText="Details">
+        <p:column style="width:5%" headerText="Details" exportable="false">
           <p:commandButton action="#{searchBean.updateUserProfile}" class="btn btn-primary"
 		     icon="fa fa-fw fa-edit fa-lg" title="View Individual Details" style="height:2em;">
 		    

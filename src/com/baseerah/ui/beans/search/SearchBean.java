@@ -68,6 +68,10 @@ public class SearchBean implements Serializable
 	
 	private boolean updateUser;
 	
+	private String searchEventTitle;
+	
+	private Integer searchEventTypeId;;
+	private List<SelectItem> eventTypeItems;
 	
 	private List<UserProfile> userProfileList = new ArrayList<UserProfile>();
 	
@@ -79,6 +83,20 @@ public class SearchBean implements Serializable
 		sourceType = new SourceType();
 		sourceTypeItems = new ArrayList<>();
 		selectedEvent = new Event();
+		 List<EventType> eventTypes;
+		try {
+			eventTypes = new EventBll().searchEventTypes();
+			eventTypeItems = new ArrayList<>();
+			for (EventType type : eventTypes) {
+				eventTypeItems.add(new SelectItem(type.getId(), type.getEventType()));
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
 		
 	}
 	
@@ -148,7 +166,7 @@ public class SearchBean implements Serializable
 //		if(dateTo.after(dateFrom))
 //		{
 			try {
-				this.userProfileList = bll.searchUserProfileList(toSearchUserProfile);
+				this.userProfileList = bll.searchUserProfileList(toSearchUserProfile, searchEventTitle, searchEventTypeId);
 				System.out.println("Individuals list size :: " + this.userProfileList.size());
 			
 			} catch (Exception e) {
@@ -538,6 +556,48 @@ public class SearchBean implements Serializable
 	 */
 	public void setUpdateUser(boolean updateUser) {
 		this.updateUser = updateUser;
+	}
+
+		/**
+	 * @return the searchEventTitle
+	 */
+	public String getSearchEventTitle() {
+		return searchEventTitle;
+	}
+
+	/**
+	 * @param searchEventTitle the searchEventTitle to set
+	 */
+	public void setSearchEventTitle(String searchEventTitle) {
+		this.searchEventTitle = searchEventTitle;
+	}
+
+	/**
+	 * @return the searchEventTypeId
+	 */
+	public Integer getSearchEventTypeId() {
+		return searchEventTypeId;
+	}
+
+	/**
+	 * @param searchEventTypeId the searchEventTypeId to set
+	 */
+	public void setSearchEventTypeId(Integer searchEventTypeId) {
+		this.searchEventTypeId = searchEventTypeId;
+	}
+
+	/**
+	 * @return the eventTypeItems
+	 */
+	public List<SelectItem> getEventTypeItems() {
+		return eventTypeItems;
+	}
+
+	/**
+	 * @param eventTypeItems the eventTypeItems to set
+	 */
+	public void setEventTypeItems(List<SelectItem> eventTypeItems) {
+		this.eventTypeItems = eventTypeItems;
 	}
 
 	

@@ -117,6 +117,70 @@ public class SearchBll
 		return list;
 	}
 	
+	public List<UserProfile> searchUserProfileList(UserProfile toSearch, String searchEventTitle, Integer searchEventTypeId) throws Exception
+	{
+		Session session = null;
+		List<UserProfile> list = new ArrayList<UserProfile>();
+		System.out.println("In searchUserProfileList bll");
+		try
+		{
+			session = HibernateUtilsAnnot.currentSession();			
+			Criteria cr = session.createCriteria(UserProfile.class);
+//			cr.createAlias("userEvents", "uEvents");
+			
+			if(toSearch!=null)
+			{
+				if(toSearch.getId()!=null && toSearch.getId()>0)
+				{
+					cr.add(Restrictions.eq("id", toSearch.getId()));
+				}
+				if(toSearch.getPhone()!=null && toSearch.getPhone().trim().length()>0)
+				{
+					cr.add(Restrictions.ilike("phone", toSearch.getPhone(), MatchMode.ANYWHERE));
+				}
+				if(toSearch.getName()!=null && toSearch.getName().trim().length()>0)
+				{
+					cr.add(Restrictions.ilike("name", toSearch.getName(),MatchMode.ANYWHERE));
+				}
+				if(searchEventTitle !=null && searchEventTitle.trim().length()>0 
+						|| searchEventTypeId!= null && searchEventTypeId.intValue() != -1)
+				{
+					
+					cr.createAlias("userEvents", "uEvents");
+					cr.createAlias("uEvents.event", "eve");
+					cr.createAlias("eve.eventType", "eveT");
+					if(searchEventTitle !=null && searchEventTitle.trim().length()>0 ){
+						cr.add(Restrictions.ilike("eve.title", searchEventTitle,MatchMode.ANYWHERE));
+					}
+					if( searchEventTypeId!= null && searchEventTypeId.intValue() != -1){
+						cr.add(Restrictions.eq("eveT.id", searchEventTypeId));
+					}
+				}
+				
+//				cr.add(Restrictions.between("eventTime", dateFrom, dateTo));
+			}
+//			cr.addOrder(Order.asc("eventTime"));
+			list = cr.list();
+			for (UserProfile userProfile : list) {
+				Hibernate.initialize(userProfile.getUserEvents());
+			}
+			
+
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new Exception(e.getMessage());
+		}
+		finally
+		{
+			HibernateUtilsAnnot.closeSession();
+		}
+		
+		return list;
+	}
+	
 	public List<NotificationWFObject> searchNotificationList() throws Exception
 	{
 		Session session = null;
