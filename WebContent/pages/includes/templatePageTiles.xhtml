@@ -76,64 +76,29 @@
 				
 						</p:toolbar>
 						
-						<f:ajax render=":content">
-			<p:menubar style="position:absolute;top:75%;left:2%;opacity:0.7;background: #8dc73d;">
-			
-			
-			
-			
-			
-				<p:menuitem value="Home" action="#{navBean.navSearchIndividualPage}"
-					update=":content" icon="fa fa-fw fa-home" rendered="true">
-				</p:menuitem>
-
-			
-			<p:submenu label="Individual" icon="fa fa-fw fa-user">		
-					<p:menuitem value="Add Individual" icon="fa fa-fw fa-add"
-						ajax="true" name="pageViewID"
-						action="#{searchBean.createUserProfile}" update=":content" />
-					
-					<p:menuitem value="Search Individual" icon="fa fa-fw fa-search"
-						ajax="true" name="pageViewID"
-						action="#{navBean.navSearchIndividualPage}" update=":content" />
-				</p:submenu>	
-							
-					<p:menuitem value="Notification" icon="fa fa-fw fa-search"
-						ajax="true" name="pageViewID"
-						action="#{notificationBean.searchNotification}" update=":content" />
-										
-				 <p:menuitem value="Events / Courses" icon="fa fa-fw fa-graduation-cap"
-						ajax="true" name="pageViewID"
-						action="#{eventsBean.searchEvent}" update=":content" />
-										
-					
-					
-					
-					
-				<p:submenu label="Admin" icon="fa fa-fw fa-gear"
-				
-					>
-					
-						<p:menuitem value="Add New Users"  rendered="#{userBean.currentUser.roleAdmin=='Y'}"
-						action="#{navBean.navAdminAddUsersPage}" update=":content"
-						icon="fa fa-fw fa-user-plus" />	
-						<p:separator />
-						<p:menuitem value="Manage Users" rendered="#{userBean.currentUser.roleAdmin=='Y'}"
-						action="#{navBean.navAdminManageUsersPage}" update=":content"
-						icon="fa fa-fw fa-users" />
-						
-								
-					
-					<p:separator />
-					<p:menuitem value="Change Password"
-						action="#{navBean.navAdminChangePassword}" update=":content"
-						icon="fa fa-fw fa-lock"/>
-					
-					
-			</p:submenu>
-
-			</p:menubar>
-		</f:ajax>
+						<p:menubar style="position:absolute;top:75%;left:2%;opacity:0.7;background: #c5fafe;color: white !important;"> 
+							<p:menuitem value="Home" action="#{navBean.navSearchIndividualPage}" 
+							update=":content" icon="fa fa-fw fa-home" rendered="true">
+							</p:menuitem>
+							<p:menuitem value="Add Person" icon="fa fa-fw fa-user" 
+								name="pageViewID"
+								action="#{searchBean.createUserProfile}" update=":content" />
+							<p:menuitem value="Search Person" icon="fa fa-fw fa-search" 
+								action="#{navBean.navSearchIndividualPage}" update=":content" />
+							<p:menuitem value="Notification" icon="fa fa-fw fa-bell"
+								action="#{notificationBean.searchNotification}" update=":content" />
+							<p:menuitem value="Events / Courses" icon="fa fa-fw fa-graduation-cap"
+								action="#{eventsBean.searchEvent}" update=":content" />
+							<p:menuitem value="Add User"  rendered="#{userBean.currentUser.roleAdmin=='Y'}"
+								action="#{navBean.navAdminAddUsersPage}" update=":content"
+								icon="fa fa-fw fa-user-plus" />	
+							<p:menuitem value="Manage User" rendered="#{userBean.currentUser.roleAdmin=='Y'}"
+								action="#{navBean.navAdminManageUsersPage}" update=":content"
+								icon="fa fa-fw fa-users" />
+							<p:menuitem value="Change Password"
+								action="#{navBean.navAdminChangePassword}" update=":content"
+								icon="fa fa-fw fa-lock"/>
+						</p:menubar>
 						</div> 
 				 </div>
 		<p:messages severity="info, error, fatal"   id="msgs"

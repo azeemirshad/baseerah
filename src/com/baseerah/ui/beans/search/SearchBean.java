@@ -16,6 +16,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
@@ -85,11 +86,51 @@ public class SearchBean implements Serializable
 		selectedEvent = new Event();
 		 List<EventType> eventTypes;
 		try {
+//			System.out.println("Inside searchBean constructor");
 			eventTypes = new EventBll().searchEventTypes();
 			eventTypeItems = new ArrayList<>();
-			for (EventType type : eventTypes) {
-				eventTypeItems.add(new SelectItem(type.getId(), type.getEventType()));
+			String baseerahEvents = Environment.getProperty("baseerahEvents");
+//			System.out.println("Baseerah Events .... " + baseerahEvents);
+			String[] events = baseerahEvents.split(",");
+			int[] ints = new int[events.length];
+			for (int i = 0; i < events.length; i++) {
+			    ints[i] = Integer.parseInt(events[i]);
 			}
+//			System.out.println("Baseerah Events array size .... " + ints.length);
+			List<SelectItem> otherEventTypeItems = new ArrayList<>();
+			List<SelectItem> baseerahEventTypeItems = new ArrayList<>();
+			SelectItemGroup g1 = new SelectItemGroup("Baseerah");
+			SelectItemGroup g2 = new SelectItemGroup("Others");
+			boolean flag = false;
+			for (EventType type : eventTypes) {
+				
+				for (int i = 0; i < ints.length; i++) {
+					if(ints[i] == type.getId().intValue()){
+//						System.out.println("Adding to Baseerah Events .... " + type.getEventType());
+						baseerahEventTypeItems.add(new SelectItem(type.getId(), type.getEventType()));
+						flag = true;
+					}
+						
+				}
+				if(!flag){
+					System.out.println("Adding to Other Events .... " + type.getEventType());
+					otherEventTypeItems.add(new SelectItem(type.getId(), type.getEventType()));
+				}
+				flag = false;
+//				if(baseerahEvents.contains(String.valueOf(type.getId())))
+//					eventTypeItems.add(new SelectItem(type.getId(), type.getEventType()));
+			}
+//			System.out.println("COnverting list to array .... " );
+			g1.setSelectItems(baseerahEventTypeItems.toArray(new SelectItem[0]));
+//			System.out.println("COnverting list to array g1.... " + g1.getSelectItems().length);
+			g2.setSelectItems(otherEventTypeItems.toArray(new SelectItem[0]));
+//			System.out.println("COnverting list to array g2.... " + g2.getSelectItems().length);
+			
+			eventTypeItems.add(g1);
+			eventTypeItems.add(g2);
+			System.out.println("Event type items length.... " + eventTypeItems.size());
+			
+			
 		} catch (Exception e) {
 			
 			e.printStackTrace();

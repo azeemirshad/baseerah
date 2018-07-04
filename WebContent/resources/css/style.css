@@ -254,6 +254,16 @@ margin:auto;
 background: transparent !important;
 background-image: none ;
 }
+.ui-selectonemenu-items{
+	background: #1e4f45!important;
+}
+.ui-menuitem{
+	color: white !important;
+}
+.a{
+	background-color: #1e4f45!important;
+	background: infobackground;
+}
 .ui-layout-unit-footer {
     padding: 0.2em 0.2em 0.2em 0.2em !important;
 }

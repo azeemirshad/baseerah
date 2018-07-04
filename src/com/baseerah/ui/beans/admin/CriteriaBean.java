@@ -24,20 +24,20 @@ public class CriteriaBean
 	private List<SelectItem> twoOptionsList; //Yes, No
 	private List<SelectItem> threeOptionsList; //NA, Yes, No
 	private List<SelectItem> negPosOptionsList ; //Negative, positive
-	private List<SelectItem> srcAetList ; //SrcAet values from lu_aet_vw view
-	private List<SelectItem> modalityList ; //Modalities values from lu_modality_vw view
+//	private List<SelectItem> srcAetList ; //SrcAet values from lu_aet_vw view
+//	private List<SelectItem> modalityList ; //Modalities values from lu_modality_vw view
 
 	private String maxFileSize;
  
 	private String pageTitle;
-	private String weasisPath;
+//	private String weasisPath;
 	
 //	Implemented For Windows Operating System only
-	private Long onlineStorageFreeSpace = 0l;
-	private String onlineStorageDrive;
-	private String onlineStoragePath;
+//	private Long onlineStorageFreeSpace = 0l;
+//	private String onlineStorageDrive;
+//	private String onlineStoragePath;
 	
-	private boolean syncStatusOption;
+//	private boolean syncStatusOption;
 	
 	public CriteriaBean() 
 	{
@@ -45,8 +45,8 @@ public class CriteriaBean
 		this.twoOptionsList = new ArrayList<SelectItem>();
 		this.threeOptionsList = new ArrayList<SelectItem>();
 		this.negPosOptionsList = new ArrayList<SelectItem>();
-		this.srcAetList = new ArrayList<SelectItem>();
-		this.modalityList = new ArrayList<SelectItem>();
+//		this.srcAetList = new ArrayList<SelectItem>();
+//		this.modalityList = new ArrayList<SelectItem>();
 		HttpServletRequest request = (HttpServletRequest)(FacesContext.getCurrentInstance().getExternalContext().getRequest());
 //		System.out.println("*********************************" +request.getLocalAddr());
 //		System.out.println("*********************************" +request.getRemoteAddr());
@@ -58,12 +58,12 @@ public class CriteriaBean
 //		System.out.println("*********************************" +request.getServletPath());
 		
 		
-		this.weasisPath = request.getScheme()+"://" + request.getServerName() + ":"+ request.getServerPort() + Environment.getWeasisServerPath();
+//		this.weasisPath = request.getScheme()+"://" + request.getServerName() + ":"+ request.getServerPort() + Environment.getWeasisServerPath();
 		
 //		To be commented while deploying on production
 //		this.weasisPath = "http://" + request.getServerName() + ":8081"+ Environment.getWeasisServerPath();
-		System.out.println("Viewer path: "+weasisPath);
-		this.syncStatusOption=false;
+//		System.out.println("Viewer path: "+weasisPath);
+//		this.syncStatusOption=false;
 		
 
 	}
@@ -164,20 +164,7 @@ public class CriteriaBean
 
 
 
-	public boolean isSyncStatusOption() 
-	{
-		if(Environment.getSyncStatusOption()!=null && Environment.getSyncStatusOption().trim().length()>0
-				&& Environment.getSyncStatusOption().equalsIgnoreCase(BaseerahConstants.Constants.TRUE_STRING))
-		{
-			this.syncStatusOption=true;
-		}
-		else
-		{
-			this.syncStatusOption=false;
-		}
-		return syncStatusOption;
-	}
-
+	
 	
 
 }

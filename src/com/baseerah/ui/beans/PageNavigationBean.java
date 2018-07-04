@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.baseerah.ui.beans.admin.CriteriaBean;
-import com.baseerah.ui.beans.search.SearchBean;
+
 import com.baseerah.utils.BaseerahConstants;
 import com.baseerah.utils.NavigationConstants;
 import com.iac.web.util.FacesUtils;

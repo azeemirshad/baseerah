@@ -63,7 +63,8 @@ public class EnvmtBean
 
 	public String getApplFullName() 
 	{
-		this.applFullName = getBusinessClientName()+" - "+getApplName();
+//		this.applFullName = getBusinessClientName()+" - "+getApplName();
+		this.applFullName = getApplName();
 		return applFullName;
 	}
 

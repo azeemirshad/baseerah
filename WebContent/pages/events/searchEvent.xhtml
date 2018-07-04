@@ -68,6 +68,11 @@
 				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{noti.campus.name}" />
 			
         </p:column>
+        <p:column headerText="Type" sortBy="#{noti.eventType.eventType}" filterBy="#{noti.eventType.eventType}" 
+			filterMatchMode="contains" >
+				<h:outputText style="font-size:14px;font-weight:bold !important;"  value="#{noti.eventType.eventType}" />
+			
+        </p:column>
         
 	    <p:column width="10%" >
 			<center>
@@ -80,7 +85,8 @@
   					</f:setPropertyActionListener>
 		    </p:commandButton>
 		    <p:spacer width="5px"></p:spacer>
-			<p:commandButton action="#{eventsBean.deleteEvent}" update="tbl2"  class="btn btn-danger"
+			<p:commandButton action="#{eventsBean.deleteEvent}" update="tbl2"  styleClass="btn btn-danger" 
+			
 		     icon="fa fa-fw fa-trash-o fa-lg" title="Delete Event/Course" style="height:2em;">
 		    
 		    	<f:setPropertyActionListener value="#{noti}" 
